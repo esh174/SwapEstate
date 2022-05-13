@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "585655439948",
+    "project_id": "test-e50e6",
+    "storage_bucket": "test-e50e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585655439948:android:6d2bb4c013552de8d11ae9",
+        "android_client_info": {
+          "package_name": "ro.alexmamo.firebaseanonymousauthentication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585655439948-aquqi94s3desnbeei2pj8qc05l80posl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIrBimEOdGd3NLTDYp4PTqPfUVLnqVrQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585655439948-aquqi94s3desnbeei2pj8qc05l80posl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

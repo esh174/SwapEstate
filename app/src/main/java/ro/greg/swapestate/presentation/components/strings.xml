@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FirebaseAnonymousAuthentication</string>
+    <string name="app_tagline">You got two seconds to explain what you’re doing on my property</string>
+    <string name="email">Email</string>
+    <string name="user_continue">Continue</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="terms_and_conditions">By continuing you agree upon selling your soul</string>
+    <string name="create_account">Create an account </string>
+    <string name="back">Back</string>
+</resources>
