@@ -26,8 +26,8 @@ object Constants {
     //Screens
     const val SPLASH_SCREEN = "Splash"
     const val AUTH_SCREEN = "Sign in"
+
     const val SIGN_UP_SCREEN = "Sign up"
-    const val HOPE_SCREEN = "Hope"
     const val SIGN_UP_DETAILS_SCREEN = "Sign up detais"
     const val PROFILE_SCREEN = "Profile"
     const val SEARCH_SCREEN = "Search"

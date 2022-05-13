@@ -11,15 +11,9 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import ro.greg.swapestate.core.Constants
-import ro.greg.swapestate.core.Constants.CONFIRM_PASSWORD
-import ro.greg.swapestate.core.Constants.CONTINUE
-import ro.greg.swapestate.core.Constants.SIGN_UP_DETAILS_SCREEN
-import ro.greg.swapestate.core.Constants.TERMS_MESSAGE
 import ro.greg.swapestate.presentation.components.Branding
-import ro.greg.swapestate.presentation.sign_up.SignUpViewModel
 import ro.greg.shtistorm.presentation.auth.components.Email
 import ro.greg.shtistorm.presentation.auth.components.EmailState
 import ro.greg.shtistorm.presentation.auth.components.Password
@@ -27,9 +21,10 @@ import ro.greg.shtistorm.presentation.components.ConfirmPasswordState
 import ro.greg.shtistorm.presentation.components.PasswordState
 
 @Composable
-fun SignUpContent(
-    navController: NavController,
-    viewModel: SignUpViewModel = hiltViewModel()
+fun SignUpScreenContent(
+    signUpWithEmail: (String,String) -> Unit,
+    navController: NavController
+
 
 ) {
     Box(modifier = Modifier
@@ -48,6 +43,7 @@ fun SignUpContent(
                     .weight(1f)
 
             )
+
             Email(emailState, onImeAction = { passwordFocusRequest.requestFocus() })
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -63,17 +59,16 @@ fun SignUpContent(
             Spacer(modifier = Modifier.height(16.dp))
             val confirmPasswordState = remember { ConfirmPasswordState(passwordState = passwordState) }
             Password(
-                label = CONFIRM_PASSWORD,
+                label = Constants.CONFIRM_PASSWORD,
                 passwordState = confirmPasswordState,
-                onImeAction = { viewModel.signUp(emailState.text, passwordState.text )
-                },
+                onImeAction = { signUpWithEmail },
                 modifier = Modifier.focusRequester(confirmationPasswordFocusRequest)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
             CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text(
-                    text = TERMS_MESSAGE,
+                    text = Constants.TERMS_MESSAGE,
                     style = MaterialTheme.typography.caption
                 )
             }
@@ -83,19 +78,18 @@ fun SignUpContent(
                 modifier = Modifier.padding(16.dp)
                     .fillMaxWidth(),
                 onClick = {
-                    viewModel.signUp(emailState.text, passwordState.text)
-                    navController.navigate(SIGN_UP_DETAILS_SCREEN)
+                    signUpWithEmail(emailState.text, passwordState.text)
+                    navController.navigate(Constants.SIGN_UP_DETAILS_SCREEN)
                 },
                 enabled = emailState.isValid &&
                         passwordState.isValid && confirmPasswordState.isValid
 
 
             ) {
-                Text(text = CONTINUE)
+                Text(text = Constants.CONTINUE)
             }
 
         }
 
     }
-
 }

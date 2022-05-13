@@ -10,7 +10,7 @@ import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.presentation.auth.AuthScreen
 import ro.greg.swapestate.presentation.profile.ProfileScreen
-import ro.greg.swapestate.presentation.hope.HopeScreen
+import ro.greg.swapestate.presentation.sign_up.SignUpScreen
 
 @Composable
 @InternalCoroutinesApi
@@ -34,7 +34,7 @@ fun NavGraph (
         composable(
             route = Screen.HopeScreen.route
         ) {
-            HopeScreen(
+            SignUpScreen(
                 navController = navController
             )
         }

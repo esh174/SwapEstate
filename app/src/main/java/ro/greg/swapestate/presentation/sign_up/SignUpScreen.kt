@@ -5,22 +5,28 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.InternalCoroutinesApi
-import ro.greg.swapestate.presentation.sign_up.components.SignUpContent
+import ro.greg.swapestate.presentation.sign_up.components.SignUpScreenContent
 import ro.greg.swapestate.presentation.sign_up.components.SignUpTopBar
 
-@OptIn(InternalCoroutinesApi::class)
+
 @Composable
+@InternalCoroutinesApi
 fun SignUpScreen(
-    viewModel: SignUpViewModel = hiltViewModel(),
-    navController: NavController
+    navController: NavController,
+    viewModel: HopeViewModel = hiltViewModel(),
 ) {
     Scaffold(
         topBar = {
-            SignUpTopBar(navController)
+            SignUpTopBar(navController = navController)
         }
     ) {
         it.calculateTopPadding()
-        SignUpContent(navController)
 
+        SignUpScreenContent(
+            signUpWithEmail = {email: String, password: String -> viewModel.signUp(email, password)},
+            navController = navController
+        )
     }
+
+
 }

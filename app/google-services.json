@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "585655439948",
-    "project_id": "test-e50e6",
-    "storage_bucket": "test-e50e6.appspot.com"
+    "project_number": "990246666957",
+    "project_id": "swapestate-aedff",
+    "storage_bucket": "swapestate-aedff.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:585655439948:android:6d2bb4c013552de8d11ae9",
+        "mobilesdk_app_id": "1:990246666957:android:88ed45ffefcf2d1a425f84",
         "android_client_info": {
-          "package_name": "ro.alexmamo.firebaseanonymousauthentication"
+          "package_name": "ro.greg.swapestate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "585655439948-aquqi94s3desnbeei2pj8qc05l80posl.apps.googleusercontent.com",
+          "client_id": "990246666957-cj7rvl5sv4dfmq69jobqbdqnl5lekh1s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCIrBimEOdGd3NLTDYp4PTqPfUVLnqVrQI"
+          "current_key": "AIzaSyBFUxMCYcPyfSatu5e-yodXKJZzT5sWupI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "585655439948-aquqi94s3desnbeei2pj8qc05l80posl.apps.googleusercontent.com",
+              "client_id": "990246666957-cj7rvl5sv4dfmq69jobqbdqnl5lekh1s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

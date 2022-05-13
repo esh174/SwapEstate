@@ -26,7 +26,7 @@ fun AuthScreen(
         }
     ) {
         it.calculateTopPadding()
-        AuthContent({ navController.navigate(Constants.HOPE_SCREEN) })
+        AuthContent({ navController.navigate(Constants.SIGN_UP_SCREEN) })
     }
 
     when(val response = viewModel.signInState.value) {
