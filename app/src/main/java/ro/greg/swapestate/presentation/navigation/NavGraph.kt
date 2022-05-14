@@ -32,7 +32,7 @@ fun NavGraph (
             )
         }
         composable(
-            route = Screen.HopeScreen.route
+            route = Screen.SignUpScreen.route
         ) {
             SignUpScreen(
                 navController = navController

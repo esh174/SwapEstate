@@ -11,7 +11,7 @@ import ro.greg.swapestate.domain.use_case.UseCases
 import javax.inject.Inject
 
 @HiltViewModel
-class HopeViewModel @Inject
+class SignUpViewModel @Inject
 constructor(
     private val useCases: UseCases
 ): ViewModel() {

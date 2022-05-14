@@ -13,7 +13,7 @@ import ro.greg.swapestate.presentation.sign_up.components.SignUpTopBar
 @InternalCoroutinesApi
 fun SignUpScreen(
     navController: NavController,
-    viewModel: HopeViewModel = hiltViewModel(),
+    viewModel: SignUpViewModel = hiltViewModel(),
 ) {
     Scaffold(
         topBar = {
