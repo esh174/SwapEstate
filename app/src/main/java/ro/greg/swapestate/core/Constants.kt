@@ -4,6 +4,9 @@ object Constants {
     //App
     const val TAG = "AppTag"
 
+    //Firestore
+    const val USERS = "users"
+    const val ID = "is"
     //Buttons
     const val SIGN_IN = "Sign in"
     const val SIGN_OUT = "Sign out"

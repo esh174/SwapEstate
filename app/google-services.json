@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "990246666957",
-    "project_id": "swapestate-aedff",
-    "storage_bucket": "swapestate-aedff.appspot.com"
+    "project_number": "320786301744",
+    "project_id": "swapestate-4356e",
+    "storage_bucket": "swapestate-4356e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:990246666957:android:7470ba6dc88646d6425f84",
+        "mobilesdk_app_id": "1:320786301744:android:79e7033ac64a87b8037ef5",
         "android_client_info": {
           "package_name": "ro.greg.swapestate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "990246666957-cj7rvl5sv4dfmq69jobqbdqnl5lekh1s.apps.googleusercontent.com",
+          "client_id": "320786301744-k4in7cregfpml3k1f6981e3l3ealimpf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBFUxMCYcPyfSatu5e-yodXKJZzT5sWupI"
+          "current_key": "AIzaSyDNgM_i7cWdJwyNXMZANvB7TWLnRH3bqyM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "990246666957-cj7rvl5sv4dfmq69jobqbdqnl5lekh1s.apps.googleusercontent.com",
+              "client_id": "320786301744-k4in7cregfpml3k1f6981e3l3ealimpf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
