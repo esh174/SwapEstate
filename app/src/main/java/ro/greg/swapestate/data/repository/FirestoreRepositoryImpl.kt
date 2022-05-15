@@ -21,12 +21,11 @@ class FirestoreRepositoryImpl @Inject constructor(
     override suspend fun firestoreAddUser(id: String, email: String) = flow {
         try {
             emit(Loading)
-            val userId = usersRef.document().id
             val user = User(
                 id = id,
                 email = email
             )
-            val addition = usersRef.document(userId).set(user).await()
+            val addition = usersRef.document(id).set(user).await()
             emit(Success(addition))
         } catch (e: Exception) {
             emit(Error(e.message ?: e.toString()))
