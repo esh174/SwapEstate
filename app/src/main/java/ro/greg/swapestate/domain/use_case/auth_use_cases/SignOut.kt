@@ -1,4 +1,4 @@
-package ro.greg.swapestate.domain.use_case
+package ro.greg.swapestate.domain.use_case.auth_use_cases
 
 import ro.greg.swapestate.domain.repository.AuthRepository
 

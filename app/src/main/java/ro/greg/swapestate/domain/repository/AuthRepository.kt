@@ -6,6 +6,8 @@ import ro.greg.swapestate.domain.model.Response
 interface AuthRepository {
     fun isUserAuthenticatedInFirebase(): Boolean
 
+    fun getUserUid(): String
+
     suspend fun firebaseSignInAnonymously(): Flow<Response<Boolean>>
 
     suspend fun signOut(): Flow<Response<Boolean>>

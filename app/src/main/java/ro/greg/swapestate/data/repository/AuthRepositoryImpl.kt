@@ -4,9 +4,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
+import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.Response.*
 import ro.greg.swapestate.domain.repository.AuthRepository
 import javax.inject.Inject
@@ -18,6 +20,8 @@ class AuthRepositoryImpl  @Inject constructor(
     private val auth: FirebaseAuth
 ): AuthRepository {
     override fun isUserAuthenticatedInFirebase() = auth.currentUser != null
+
+    override fun getUserUid() = auth.currentUser!!.getUid()
 
     override suspend fun firebaseSignInAnonymously() = flow {
         try {
@@ -39,6 +43,11 @@ class AuthRepositoryImpl  @Inject constructor(
         }
 
     }
+
+
+
+
+//Todo Change from deletion to sign out
     override suspend fun signOut() = flow {
         try {
             emit(Loading)
