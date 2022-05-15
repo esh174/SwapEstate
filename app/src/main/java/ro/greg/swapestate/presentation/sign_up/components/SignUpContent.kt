@@ -79,7 +79,7 @@ fun SignUpScreenContent(
                     .fillMaxWidth(),
                 onClick = {
                     signUpWithEmail(emailState.text, passwordState.text)
-                    //navController.navigate(Constants.SIGN_UP_DETAILS_SCREEN)
+                    navController.navigate(Constants.USER_DETAILS_SCREEN)
                 },
                 enabled = emailState.isValid &&
                         passwordState.isValid && confirmPasswordState.isValid

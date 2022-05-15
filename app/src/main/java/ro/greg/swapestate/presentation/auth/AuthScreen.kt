@@ -10,7 +10,6 @@ import ro.greg.swapestate.core.Constants
 import ro.greg.swapestate.core.Utils.Companion.printError
 import ro.greg.swapestate.domain.model.Response.*
 import ro.greg.swapestate.presentation.auth.components.AuthContent
-import ro.greg.swapestate.presentation.auth.components.AuthTopBar
 import ro.greg.swapestate.presentation.components.ProgressBar
 import ro.greg.swapestate.presentation.navigation.Screen.ProfileScreen
 
@@ -20,13 +19,9 @@ fun AuthScreen(
     viewModel: AuthViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    Scaffold(
-        topBar = {
-            AuthTopBar()
-        }
-    ) {
+    Scaffold() {
         it.calculateTopPadding()
-        AuthContent({ navController.navigate(Constants.SIGN_UP_SCREEN) })
+        AuthContent(navController =  navController)
     }
 
     when(val response = viewModel.signInState.value) {

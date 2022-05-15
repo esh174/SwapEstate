@@ -16,8 +16,10 @@ object Constants {
     const val CONTINUE_RENTER = "Renter"
     const val EMAIL = "Email"
     const val PASSWORD = "Password"
+    const val Phone = "Phone nubmer"
     const val CONFIRM_PASSWORD = "Confirm password"
     const val SHOW_PASSWORD = "Show password"
+
 
 
 
@@ -31,7 +33,7 @@ object Constants {
     const val AUTH_SCREEN = "Sign in"
 
     const val SIGN_UP_SCREEN = "Sign up"
-    const val SIGN_UP_DETAILS_SCREEN = "Sign up detais"
+    const val USER_DETAILS_SCREEN = "User details"
     const val PROFILE_SCREEN = "Profile"
     const val SEARCH_SCREEN = "Search"
     const val CHATS_SCREEN = "Chats"
