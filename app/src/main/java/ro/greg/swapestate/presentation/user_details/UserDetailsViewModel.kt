@@ -1,5 +1,6 @@
 package ro.greg.swapestate.presentation.user_details
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -18,24 +19,17 @@ constructor(
     private val authUseCases: AuthUseCases,
     private val firestoreUseCases: FirestoreUseCases
 ): ViewModel() {
-    private val _signUpState = mutableStateOf<Response<Boolean>>(Response.Success(false))
-    val signUpState: State<Response<Boolean>> = _signUpState
 
-    private val _addUserState = mutableStateOf<Response<Void?>>(Response.Success(null))
-    val addUserState: State<Response<Void?>> = _addUserState
 
     private val userUid get() =  authUseCases.getUserUid()
 
-    fun signUp(email: String, password: String) {
+    fun addUserInfo(name: String, phone: String, imageUri: String, userType: String) {
         viewModelScope.launch {
 
-            authUseCases.createUserWithEmailAndPassword(email, password).collect { response ->
-                _signUpState.value = response
-            }
 
 
-            firestoreUseCases.addUserToFireStore(userUid, email).collect { response ->
-                _addUserState.value = response
+            firestoreUseCases.addUserInfo(userUid,name, phone, imageUri, userType).collect { response ->
+
             }
 
 

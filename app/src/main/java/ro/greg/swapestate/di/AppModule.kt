@@ -18,6 +18,7 @@ import ro.greg.swapestate.data.repository.FirestoreRepositoryImpl
 import ro.greg.swapestate.domain.repository.AuthRepository
 import ro.greg.swapestate.domain.repository.FirestoreRepository
 import ro.greg.swapestate.domain.use_case.auth_use_cases.*
+import ro.greg.swapestate.domain.use_case.firestore_use_cases.AddUserInfo
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.AddUserToFireStore
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.FirestoreUseCases
 
@@ -58,6 +59,7 @@ class AppModule {
     )
     @Provides
     fun provideFirestoreUseCases(repository: FirestoreRepository) = FirestoreUseCases(
-        addUserToFireStore = AddUserToFireStore(repository)
+        addUserToFireStore = AddUserToFireStore(repository),
+        addUserInfo =  AddUserInfo(repository)
     )
 }

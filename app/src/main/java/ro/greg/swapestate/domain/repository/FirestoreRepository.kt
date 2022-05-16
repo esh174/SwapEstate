@@ -9,4 +9,5 @@ interface FirestoreRepository {
 
     suspend fun firestoreAddUser(id: String, email : String): Flow<Response<Void?>>
 
+    suspend fun firestoreAddInfo(id:String, name: String, phone : String, imageUri: String, userType: String): Flow<Response<Void?>>
 }

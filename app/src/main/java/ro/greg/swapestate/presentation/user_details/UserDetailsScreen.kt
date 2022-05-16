@@ -23,7 +23,8 @@ fun UserDetailsScreen(
         }
     ) {
         it.calculateTopPadding()
-        UserDetailsContent(navController = navController)
+
+        UserDetailsContent()
 
 
     }

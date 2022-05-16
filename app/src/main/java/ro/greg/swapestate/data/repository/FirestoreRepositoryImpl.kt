@@ -32,4 +32,19 @@ class FirestoreRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun firestoreAddInfo(id:String, name: String, phone : String, imageUri: String, userType: String) = flow {
+        try {
+            emit(Loading)
+            val detailsAddition = usersRef.document(id).update(mapOf(
+                "name" to name,
+                "phone" to phone,
+                "imageUri" to imageUri,
+                "userType" to userType
+            )).await()
+            emit(Success(detailsAddition))
+        } catch (e: Exception) {
+            emit(Error(e.message ?: e.toString()))
+        }
+    }
+
 }

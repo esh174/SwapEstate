@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -22,6 +23,7 @@ import ro.greg.swapestate.R
 @Composable
 fun ProfileImage() {
     val imageUri = rememberSaveable { mutableStateOf("") }
+    val imageUriSaved = compositionLocalOf {imageUri}
     val painter = rememberImagePainter(
         if (imageUri.value.isEmpty())
             R.drawable.ic_user
