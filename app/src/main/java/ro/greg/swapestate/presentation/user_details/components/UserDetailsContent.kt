@@ -206,7 +206,7 @@ fun UserDetailsContent(
                         viewModel.addUserInfo(
                             userName,
                             fullPhoneNumber,
-                            imageUri,
+                            Uri.parse(imageUri),
                             selected
                         )
                     },

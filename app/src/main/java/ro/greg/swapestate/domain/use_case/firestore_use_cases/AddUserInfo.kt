@@ -1,5 +1,6 @@
 package ro.greg.swapestate.domain.use_case.firestore_use_cases
 
+import android.net.Uri
 import ro.greg.swapestate.domain.repository.FirestoreRepository
 
 
@@ -10,7 +11,6 @@ class AddUserInfo(
         id:String,
         name: String,
         phone : String,
-        imageUri: String,
         userType: String
-    ) = repository.firestoreAddInfo(id, name, phone, imageUri, userType)
+    ) = repository.firestoreAddInfo(id, name, phone, userType)
 }
