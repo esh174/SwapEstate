@@ -7,9 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ro.greg.swapestate.domain.model.Response
-import ro.greg.swapestate.domain.use_case.CloudStorageUseCases
+import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.CloudStorageUseCases
 import ro.greg.swapestate.domain.use_case.auth_use_cases.AuthUseCases
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.FirestoreUseCases
 import javax.inject.Inject
@@ -32,6 +33,7 @@ constructor(
         viewModelScope.launch {
             firestoreUseCases.addUserInfo(userUid, name, phone, userType).collect {
             }
+
             cloudStorageUseCases.addImageToCloudStorage(imageUri, userUid).collect { response ->
                 _imageAddState.value = response
             }

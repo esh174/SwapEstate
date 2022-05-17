@@ -1,6 +1,7 @@
 package ro.greg.swapestate.presentation.profile
 
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,14 +20,21 @@ fun ProfileScreen(
     navController: NavController,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
+
+
     Scaffold(
         topBar = {
-            ProfileTopBar()
+            ProfileTopBar(navController = navController,
+                signOut = { viewModel.signOut() })
         }
     ) {
         it.calculateTopPadding()
-        ProfileContent()
+
+
+        ProfileContent(viewModel.getProfileImageUrlState)
     }
+
+
 
     when(val response = viewModel.signOutState.value) {
         is Loading -> ProgressBar()

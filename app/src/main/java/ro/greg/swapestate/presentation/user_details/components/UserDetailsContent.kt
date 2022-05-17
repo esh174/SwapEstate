@@ -25,7 +25,6 @@ import com.togitech.ccp.data.utils.getDefaultPhoneCode
 import com.togitech.ccp.data.utils.getLibCountries
 import ro.greg.shtistorm.presentation.theme.LightTextColor
 import ro.greg.swapestate.R
-
 import ro.greg.swapestate.core.Constants
 import ro.greg.swapestate.presentation.components.Branding
 import ro.greg.swapestate.presentation.user_details.UserDetailsViewModel
@@ -93,6 +92,7 @@ fun UserDetailsContent(
 
                         ) {
                         Image(
+
                             painter = painter,
                             contentDescription = null,
                             modifier = Modifier

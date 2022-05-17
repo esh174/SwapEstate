@@ -19,9 +19,10 @@ import ro.greg.swapestate.data.repository.FirestoreRepositoryImpl
 import ro.greg.swapestate.domain.repository.AuthRepository
 import ro.greg.swapestate.domain.repository.CloudStorageRepository
 import ro.greg.swapestate.domain.repository.FirestoreRepository
-import ro.greg.swapestate.domain.use_case.AddImageToCloudStorage
-import ro.greg.swapestate.domain.use_case.CloudStorageUseCases
+import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.AddImageToCloudStorage
+import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.CloudStorageUseCases
 import ro.greg.swapestate.domain.use_case.auth_use_cases.*
+import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.GetImageUrl
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.AddUserInfo
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.AddUserToFireStore
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.FirestoreUseCases
@@ -80,8 +81,10 @@ class AppModule {
 
     @Provides
     fun provideCloudStorageUseCases(repository: CloudStorageRepository) = CloudStorageUseCases(
-        addImageToCloudStorage = AddImageToCloudStorage(repository)
+        addImageToCloudStorage = AddImageToCloudStorage(repository),
+        getImageUrl =  GetImageUrl(repository)
     )
+
 
 
 
