@@ -4,5 +4,6 @@ import ro.greg.swapestate.domain.use_case.*
 
 data class FirestoreUseCases(
     val addUserToFireStore: AddUserToFireStore,
-    val addUserInfo: AddUserInfo
+    val addUserInfo: AddUserInfo,
+    val getUserInfo: GetUserInfo
 )

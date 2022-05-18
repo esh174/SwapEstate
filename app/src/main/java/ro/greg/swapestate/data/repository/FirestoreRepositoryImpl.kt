@@ -2,6 +2,8 @@ package ro.greg.swapestate.data.repository
 
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import ro.greg.swapestate.domain.model.Response.*
@@ -46,4 +48,22 @@ class FirestoreRepositoryImpl @Inject constructor(
         }
     }
 
+
+    override  fun firestoreGetUserInfo(id:String) = callbackFlow {
+          val snapshotListener = usersRef.document(id).addSnapshotListener{ snapshot, e ->
+                val response = if (snapshot != null) {
+                    val user = snapshot.toObject(User::class.java)
+                    Success(user)
+                } else {
+                    Error(e?.message ?: e.toString())
+                }
+                trySend(response).isSuccess
+            }
+          awaitClose {
+              snapshotListener.remove()
+          }
+
+        }
+
 }
+

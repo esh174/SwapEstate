@@ -31,7 +31,7 @@ fun ProfileScreen(
         it.calculateTopPadding()
 
 
-        ProfileContent(viewModel.getProfileImageUrlState)
+        ProfileContent()
     }
 
 

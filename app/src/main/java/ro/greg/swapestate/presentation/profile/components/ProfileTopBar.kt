@@ -33,7 +33,7 @@ fun ProfileTopBar(
     signOut: () -> Unit
 ) {
     TopAppBar (
-        elevation = 5.dp,
+        elevation = 0.dp,
         backgroundColor = BackgroundColor,
         title = {
             Row(

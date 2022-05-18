@@ -10,3 +10,5 @@ val OnSurfaceColor = Color(0xFF000000)
 val SecondaryColor = Color(0xFF593153)
 val PlaceholderColor = Color(0xFFE5E5E5)
 val LightPrimaryColor = Color(0xFFE4D9DF)
+
+

@@ -26,6 +26,7 @@ import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.GetImageUrl
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.AddUserInfo
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.AddUserToFireStore
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.FirestoreUseCases
+import ro.greg.swapestate.domain.use_case.firestore_use_cases.GetUserInfo
 
 @Module
 @ExperimentalCoroutinesApi
@@ -64,7 +65,8 @@ class AppModule {
     @Provides
     fun provideFirestoreUseCases(repository: FirestoreRepository) = FirestoreUseCases(
         addUserToFireStore = AddUserToFireStore(repository),
-        addUserInfo =  AddUserInfo(repository)
+        addUserInfo =  AddUserInfo(repository),
+        getUserInfo =  GetUserInfo(repository),
     )
 
     @Provides
