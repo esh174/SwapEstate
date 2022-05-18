@@ -9,7 +9,9 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.presentation.auth.AuthScreen
+import ro.greg.swapestate.presentation.chats.ChatsScreen
 import ro.greg.swapestate.presentation.profile.ProfileScreen
+import ro.greg.swapestate.presentation.search.SearchScreen
 import ro.greg.swapestate.presentation.sign_up.SignUpScreen
 import ro.greg.swapestate.presentation.user_details.UserDetailsScreen
 
@@ -51,6 +53,20 @@ fun NavGraph (
             route = Screen.ProfileScreen.route
         ) {
             ProfileScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.SearchScreen.route
+        ) {
+            SearchScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.ChatsScreen.route
+        ) {
+            ChatsScreen(
                 navController = navController
             )
         }

@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.core.Utils.Companion.printError
 import ro.greg.swapestate.domain.model.Response.*
+import ro.greg.swapestate.presentation.components.BottomNavigationBar
 import ro.greg.swapestate.presentation.components.ProgressBar
 import ro.greg.swapestate.presentation.navigation.Screen.AuthScreen
 import ro.greg.swapestate.presentation.profile.components.ProfileContent
@@ -26,11 +27,12 @@ fun ProfileScreen(
         topBar = {
             ProfileTopBar(navController = navController,
                 signOut = { viewModel.signOut() })
+        },
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
         }
     ) {
         it.calculateTopPadding()
-
-
         ProfileContent()
     }
 
