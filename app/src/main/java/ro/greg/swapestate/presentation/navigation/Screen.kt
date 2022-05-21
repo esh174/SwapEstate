@@ -10,6 +10,8 @@ sealed class Screen(val route: String) {
     object AuthScreen: Screen(AUTH_SCREEN)
     object SignUpScreen: Screen(Constants.SIGN_UP_SCREEN)
     object UserDetailsScreen: Screen(Constants.USER_DETAILS_SCREEN)
+    object RenterDecriptionScreen: Screen(Constants.RENTER_DESCRIPTION_SCREEN)
+    object RentalAddScreen: Screen(Constants.RENTAL_ADD_SCREEN)
     object ProfileScreen: Screen(PROFILE_SCREEN)
     object SearchScreen: Screen(SEARCH_SCREEN)
     object ChatsScreen: Screen(CHATS_SCREEN)

@@ -1,6 +1,7 @@
 package ro.greg.swapestate.domain.repository
 
 import kotlinx.coroutines.flow.Flow
+import ro.greg.swapestate.domain.model.Rental
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.User
 
@@ -13,4 +14,5 @@ interface FirestoreRepository {
 
     fun firestoreGetUserInfo(id:String): Flow<Response<User?>>
 
+    suspend fun firestoreAddRental(rental: Rental): Flow<Response<Void?>>
 }

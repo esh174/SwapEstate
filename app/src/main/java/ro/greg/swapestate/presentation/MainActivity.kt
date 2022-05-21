@@ -29,9 +29,11 @@ class MainActivity : AppCompatActivity() {
                 NavGraph(
                     navController = navController
                 )
-                if(viewModel.isUserAuthenticated) {
-                    navController.navigate(ProfileScreen.route)
-                }
+//                if(viewModel.isUserAuthenticated) {
+//                    navController.popBackStack()
+//                    navController.navigate(ProfileScreen.route)
+//
+//                }
             }
 
         }

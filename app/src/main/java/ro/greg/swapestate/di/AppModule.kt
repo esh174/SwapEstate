@@ -23,10 +23,8 @@ import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.AddImageToClou
 import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.CloudStorageUseCases
 import ro.greg.swapestate.domain.use_case.auth_use_cases.*
 import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.GetImageUrl
-import ro.greg.swapestate.domain.use_case.firestore_use_cases.AddUserInfo
-import ro.greg.swapestate.domain.use_case.firestore_use_cases.AddUserToFireStore
-import ro.greg.swapestate.domain.use_case.firestore_use_cases.FirestoreUseCases
-import ro.greg.swapestate.domain.use_case.firestore_use_cases.GetUserInfo
+import ro.greg.swapestate.domain.use_case.firestore_use_cases.*
+import javax.inject.Named
 
 @Module
 @ExperimentalCoroutinesApi
@@ -58,8 +56,8 @@ class AppModule {
 
     @Provides
     fun provideFirestoreRepository(
-        usersRef: CollectionReference,
-    ): FirestoreRepository = FirestoreRepositoryImpl(usersRef)
+        dbInstance: FirebaseFirestore,
+    ): FirestoreRepository = FirestoreRepositoryImpl(dbInstance)
 
 
     @Provides
@@ -67,6 +65,7 @@ class AppModule {
         addUserToFireStore = AddUserToFireStore(repository),
         addUserInfo =  AddUserInfo(repository),
         getUserInfo =  GetUserInfo(repository),
+        addRental =  AddRental(repository),
     )
 
     @Provides

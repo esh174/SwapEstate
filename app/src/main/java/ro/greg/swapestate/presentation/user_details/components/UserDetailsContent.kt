@@ -32,6 +32,8 @@ import ro.greg.swapestate.presentation.user_details.UserDetailsViewModel
 
 @Composable
 fun UserDetailsContent(
+    proceedOwner: ()-> Unit,
+    proceedRenter: () -> Unit,
     viewModel: UserDetailsViewModel = hiltViewModel()
 ) {
     val getDefaultLangCode = getDefaultLangCode() // Auto detect language
@@ -209,6 +211,7 @@ fun UserDetailsContent(
                             Uri.parse(imageUri),
                             selected
                         )
+                        if (selected == "Owner") proceedOwner() else proceedRenter()
                     },
                 ) {
                     Text(text = Constants.CONTINUE)

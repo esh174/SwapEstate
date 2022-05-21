@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.InternalCoroutinesApi
+import ro.greg.swapestate.core.Constants.RENTAL_ADD_SCREEN
+import ro.greg.swapestate.core.Constants.RENTER_DESCRIPTION_SCREEN
 import ro.greg.swapestate.presentation.sign_up.SignUpViewModel
 import ro.greg.swapestate.presentation.sign_up.components.SignUpScreenContent
 import ro.greg.swapestate.presentation.sign_up.components.SignUpTopBar
@@ -24,7 +26,10 @@ fun UserDetailsScreen(
     ) {
         it.calculateTopPadding()
 
-        UserDetailsContent()
+        UserDetailsContent(
+            proceedOwner = { navController.navigate(RENTAL_ADD_SCREEN) },
+             proceedRenter = { navController.navigate(RENTER_DESCRIPTION_SCREEN) }
+        )
 
 
     }

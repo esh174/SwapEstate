@@ -17,8 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
+import com.gowtham.ratingbar.RatingBar
+import com.gowtham.ratingbar.RatingBarConfig
+import com.gowtham.ratingbar.RatingBarStyle
+import com.gowtham.ratingbar.StepSize
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
+import ro.greg.shtistorm.presentation.theme.PrimaryColor
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.presentation.components.ProgressBar
@@ -32,6 +37,8 @@ fun ProfileCard(
     user: User,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
+
+
 
     val profileImageUrlState = viewModel.getProfileImageUrlState
     Row(verticalAlignment = Alignment.CenterVertically,
@@ -82,10 +89,31 @@ fun ProfileCard(
                     )
                 }
                 user.rating.let { rating ->
-                    Text(
-                        text = rating.toString(),
-                        fontSize = 25.sp
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        RatingBar(
+                            value = rating.toFloat(),
+                            config =  RatingBarConfig()
+                                .activeColor(PrimaryColor)
+                                .inactiveColor(Color.LightGray)
+                                .stepSize(StepSize.HALF)
+                                .isIndicator(true)
+                                .size(20.dp)
+                                .style(RatingBarStyle.HighLighted),
+                            onValueChange = {
+                            },
+                            onRatingChanged = {
+                            }
+                        )
+                        Text(
+                            fontWeight = FontWeight.Bold,
+                            text = rating.toString(),
+                            fontSize = 25.sp,
+                             modifier = Modifier.padding(8.dp)
+                        )
+                    }
+
                 }
                 user.reviewsNumber.let { rating ->
                     val reviewsString = if(rating%10 == 1) "review" else "reviews"

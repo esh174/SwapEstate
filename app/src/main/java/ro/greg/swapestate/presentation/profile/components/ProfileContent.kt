@@ -7,13 +7,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.HourglassTop
 import androidx.compose.material.icons.filled.OtherHouses
+import androidx.compose.material.icons.filled.Reviews
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -37,43 +40,48 @@ fun ProfileContent(
 ) {
     val userInfoState = viewModel.userInfoState
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = LightPrimaryColor)
-            .verticalScroll(rememberScrollState()),
-    ) {
-        Divider(color = LightTextColor, thickness = 1.dp)
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp))
-        ){
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(color = SurfaceColor),
-            ) {
-                when (val response = userInfoState.value) {
-                    is Response.Loading -> {
-                        ProgressBar()
-                    }
-                    is Response.Success -> {
-                        response.data?.let {
-                            ProfileCard(
-                                user = it
-                            )
+    Column(modifier = Modifier.fillMaxSize()){
+        Divider(color = Color.LightGray, thickness = 1.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = LightPrimaryColor)
+                .verticalScroll(rememberScrollState())
+            ,
+        ) {
+
+            Card(modifier = Modifier
+                .fillMaxWidth(),
+                elevation = 4.dp,
+                shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)
+                ){
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = SurfaceColor),
+                ) {
+                    when (val response = userInfoState.value) {
+                        is Response.Loading -> {
+                            ProgressBar()
+                        }
+                        is Response.Success -> {
+                            response.data?.let {
+                                ProfileCard(
+                                    user = it
+                                )
+                            }
                         }
                     }
                 }
-            }
 
-        }
+            }
 
             Spacer(Modifier.height(14.dp))
 
-            Box(modifier = Modifier
+            Card(modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(12.dp)),
+                elevation = 10.dp,
             ){
                 Column(
                     modifier = Modifier
@@ -87,7 +95,6 @@ fun ProfileContent(
                         text = "Reservations",
                         fontSize = 20.sp
                     )
-                    Divider(color = LightTextColor, thickness = 1.dp)
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
@@ -97,7 +104,7 @@ fun ProfileContent(
                         Icon(
                             imageVector = Icons.Filled.OtherHouses,
                             contentDescription = null,
-                            tint = OnSurfaceColor,
+                            tint = LightTextColor,
                             modifier = Modifier
                                 .padding(horizontal = 16.dp)
                                 .size(24.dp),
@@ -108,7 +115,7 @@ fun ProfileContent(
                             fontSize = 20.sp
                         )
                     }
-                    Divider(color = LightTextColor, thickness = 1.dp)
+                    Divider(color = Color.LightGray, thickness = 1.dp)
                     TextButton(
 
                         onClick = {
@@ -124,10 +131,11 @@ fun ProfileContent(
                 }
 
             }
-        Spacer(Modifier.height(14.dp))
-            Box(modifier = Modifier
+            Spacer(Modifier.height(14.dp))
+            Card(modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(12.dp)),
+                elevation = 10.dp,
             ){
                 Column(
                     modifier = Modifier
@@ -138,10 +146,9 @@ fun ProfileContent(
                     Text(
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(16.dp),
-                        text = "Reservations",
+                        text = "My reviews",
                         fontSize = 20.sp
                     )
-                    Divider(color = LightTextColor, thickness = 1.dp)
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
@@ -149,20 +156,20 @@ fun ProfileContent(
                             .padding(15.dp)
                     ){
                         Icon(
-                            imageVector = Icons.Filled.OtherHouses,
+                            imageVector = Icons.Filled.Reviews,
                             contentDescription = null,
-                            tint = OnSurfaceColor,
+                            tint = LightTextColor,
                             modifier = Modifier
                                 .padding(horizontal = 16.dp)
                                 .size(24.dp),
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "1 reservation",
+                            text = "10 received reviews",
                             fontSize = 20.sp
                         )
                     }
-                    Divider(color = LightTextColor, thickness = 1.dp)
+                    Divider(color = Color.LightGray, thickness = 1.dp)
                     TextButton(
 
                         onClick = {
@@ -170,7 +177,7 @@ fun ProfileContent(
                         },
                     ) {
                         Text(modifier = Modifier.padding(horizontal = 16.dp),
-                            text = "Go to reservations",
+                            text = "Go to reviews",
                             color =  PrimaryColor,
                             fontSize = 18.sp
                         )
@@ -178,10 +185,11 @@ fun ProfileContent(
                 }
 
             }
-        Spacer(Modifier.height(14.dp))
-            Box(modifier = Modifier
+            Spacer(Modifier.height(14.dp))
+            Card(modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(12.dp)),
+                elevation = 10.dp,
             ){
                 Column(
                     modifier = Modifier
@@ -192,10 +200,9 @@ fun ProfileContent(
                     Text(
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(16.dp),
-                        text = "Reservations",
+                        text = "Await reviews",
                         fontSize = 20.sp
                     )
-                    Divider(color = LightTextColor, thickness = 1.dp)
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
@@ -203,20 +210,20 @@ fun ProfileContent(
                             .padding(15.dp)
                     ){
                         Icon(
-                            imageVector = Icons.Filled.OtherHouses,
+                            imageVector = Icons.Filled.HourglassTop,
                             contentDescription = null,
-                            tint = OnSurfaceColor,
+                            tint = LightTextColor,
                             modifier = Modifier
                                 .padding(horizontal = 16.dp)
                                 .size(24.dp),
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "1 reservation",
+                            text = "1 person awaits",
                             fontSize = 20.sp
                         )
                     }
-                    Divider(color = LightTextColor, thickness = 1.dp)
+                    Divider(color = Color.LightGray, thickness = 1.dp)
                     TextButton(
 
                         onClick = {
@@ -224,7 +231,7 @@ fun ProfileContent(
                         },
                     ) {
                         Text(modifier = Modifier.padding(horizontal = 16.dp),
-                            text = "Go to reservations",
+                            text = "Go to await reviews",
                             color =  PrimaryColor,
                             fontSize = 18.sp
                         )
@@ -232,7 +239,10 @@ fun ProfileContent(
                 }
 
             }
-        Spacer(Modifier.height(14.dp))
-       }
+            Spacer(Modifier.height(100.dp))
+        }
+        Divider(color = Color.LightGray, thickness = 10.dp)
+    }
 }
+
 

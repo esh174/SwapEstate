@@ -6,6 +6,7 @@ object Constants {
 
     //Firestore
     const val USERS = "users"
+    const val RENTALS = "rentals"
     const val ID = "is"
     //Buttons
     const val SIGN_IN = "Sign in"
@@ -34,6 +35,8 @@ object Constants {
 
     const val SIGN_UP_SCREEN = "Sign up"
     const val USER_DETAILS_SCREEN = "User details"
+    const val RENTER_DESCRIPTION_SCREEN = "RENTER_DESCRIPTION_SCREEN"
+    const val RENTAL_ADD_SCREEN = "RENTAL_ADD_SCREEN"
     const val PROFILE_SCREEN = "Profile"
     const val SEARCH_SCREEN = "Search"
     const val CHATS_SCREEN = "Chats"

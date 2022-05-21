@@ -11,6 +11,8 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.presentation.auth.AuthScreen
 import ro.greg.swapestate.presentation.chats.ChatsScreen
 import ro.greg.swapestate.presentation.profile.ProfileScreen
+import ro.greg.swapestate.presentation.rental_add.RentalAddScreen
+import ro.greg.swapestate.presentation.renter_description.RenterDecriptionScreen
 import ro.greg.swapestate.presentation.search.SearchScreen
 import ro.greg.swapestate.presentation.sign_up.SignUpScreen
 import ro.greg.swapestate.presentation.user_details.UserDetailsScreen
@@ -23,8 +25,8 @@ fun NavGraph (
 ) {
     AnimatedNavHost(
         navController = navController,
-        startDestination = Screen.AuthScreen.route,
-        //startDestination = Screen.UserDetailsScreen.route,
+        //startDestination = Screen.AuthScreen.route,
+        startDestination = Screen.RentalAddScreen.route,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None }
     ) {
@@ -46,6 +48,20 @@ fun NavGraph (
             route = Screen.UserDetailsScreen.route
         ) {
             UserDetailsScreen(
+                navController = navController
+            )
+        }
+        composable(
+            route = Screen.RenterDecriptionScreen.route
+        ) {
+            RenterDecriptionScreen(
+                navController = navController
+            )
+        }
+        composable(
+            route = Screen.RentalAddScreen.route
+        ) {
+            RentalAddScreen(
                 navController = navController
             )
         }
