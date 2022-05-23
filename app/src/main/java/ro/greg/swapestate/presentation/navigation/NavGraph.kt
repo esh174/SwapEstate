@@ -25,8 +25,8 @@ fun NavGraph (
 ) {
     AnimatedNavHost(
         navController = navController,
-        //startDestination = Screen.AuthScreen.route,
-        startDestination = Screen.RentalAddScreen.route,
+        startDestination = Screen.AuthScreen.route,
+       // startDestination = Screen.RentalAddScreen.route,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None }
     ) {
