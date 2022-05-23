@@ -66,6 +66,7 @@ class AppModule {
         addUserInfo =  AddUserInfo(repository),
         getUserInfo =  GetUserInfo(repository),
         addRental =  AddRental(repository),
+        getRentals = GetRentals(repository),
     )
 
     @Provides

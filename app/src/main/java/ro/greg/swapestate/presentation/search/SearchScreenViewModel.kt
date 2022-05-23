@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import ro.greg.swapestate.domain.model.Rental
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.domain.use_case.auth_use_cases.AuthUseCases
@@ -20,8 +21,7 @@ class SearchScreenViewModel @Inject constructor(
     private val firestoreUseCases: FirestoreUseCases,
     private val cloudStorageUseCases: CloudStorageUseCases
 ): ViewModel() {
-    private val _signOutState = mutableStateOf<Response<Boolean>>(Response.Success(false))
-    val signOutState: State<Response<Boolean>> = _signOutState
+
 
     private val _getProfileImageUrlState = mutableStateOf<Response<String>>(Response.Success(""))
     val getProfileImageUrlState: State<Response<String>> = _getProfileImageUrlState
@@ -29,14 +29,18 @@ class SearchScreenViewModel @Inject constructor(
     private val _userInfoState = mutableStateOf<Response<User?>>(Response.Loading)
     val userInfoState: State<Response<User?>> = _userInfoState
 
+    private val _rentalsState = mutableStateOf<Response<MutableList<Rental>>>(Response.Loading)
+    val rentalsState: State<Response<List<Rental>>> = _rentalsState
+
+
+
     init {
-        getProfileImageUrl()
-        getUserInfo()
+
+        getRentalsQuery()
     }
 
-    private val userUid get() = authUseCases.getUserUid()
 
-    fun getProfileImageUrl(){
+    fun getProfileImageUrl(userUid:String){
         viewModelScope.launch {
             cloudStorageUseCases.getImageUrl(userUid).collect { response ->
                 _getProfileImageUrlState.value = response
@@ -44,7 +48,16 @@ class SearchScreenViewModel @Inject constructor(
         }
     }
 
-    fun getUserInfo(){
+
+    fun getRentalsQuery(){
+        viewModelScope.launch {
+            firestoreUseCases.getRentals().collect {response ->
+                _rentalsState.value = response
+            }
+        }
+    }
+
+    fun getUserInfo(userUid:String){
         viewModelScope.launch {
             firestoreUseCases.getUserInfo(userUid).collect { response ->
                 _userInfoState.value = response
@@ -52,11 +65,4 @@ class SearchScreenViewModel @Inject constructor(
         }
     }
 
-    fun signOut() {
-        viewModelScope.launch {
-            authUseCases.signOut().collect { response ->
-                _signOutState.value = response
-            }
-        }
-    }
 }

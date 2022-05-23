@@ -54,6 +54,26 @@ class FirestoreRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun firestoreGetRentals() = callbackFlow {
+        val snapshotListener = rentalsRef.orderBy("id").addSnapshotListener{ snapshot, e ->
+            val response = if (snapshot != null) {
+                val rentals = snapshot.toObjects(Rental::class.java)
+                Success(rentals)
+            } else {
+                Error(e?.message ?: e.toString())
+            }
+            trySend(response).isSuccess
+        }
+        awaitClose {
+            snapshotListener.remove()
+        }
+
+    }
+
+
+
+
+
     override suspend fun firestoreAddInfo(id:String, name: String, phone : String, userType: String) = flow {
         try {
             emit(Loading)

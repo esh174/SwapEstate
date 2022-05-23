@@ -17,16 +17,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.calculateCurrentOffsetForPage
-import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.pager.*
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.launch
 import ro.greg.swapestate.R
+import ro.greg.swapestate.core.Utils
+import ro.greg.swapestate.domain.model.Rental
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.presentation.components.BottomNavigationBar
 import ro.greg.swapestate.presentation.components.ProgressBar
+import ro.greg.swapestate.presentation.navigation.Screen
+import ro.greg.swapestate.presentation.profile.components.ProfileCard
 import ro.greg.swapestate.presentation.search.search_components.SearchUserCard
 import kotlin.math.absoluteValue
 
@@ -49,9 +51,55 @@ fun SearchScreen(
 }
 
 
-@OptIn(ExperimentalMaterialApi::class, InternalCoroutinesApi::class, ExperimentalPagerApi::class)
+
+@ExperimentalPagerApi
 @Composable
-fun BackdropComponent( viewModel: SearchScreenViewModel = hiltViewModel()) {
+fun RentalPager(
+    viewModel: SearchScreenViewModel = hiltViewModel(),
+) {
+
+    when (val response = viewModel.rentalsState.value) {
+        is Response.Loading -> {
+            ProgressBar()
+        }
+        is Response.Success -> {
+            val parentPagerState = rememberPagerState(
+                pageCount = response.data.count()
+            )
+
+            Column(
+                modifier = Modifier.fillMaxSize()
+            ) {
+
+                HorizontalPager(
+                    state = parentPagerState,
+                    modifier = Modifier
+                        .weight(1f)
+                ) { page ->
+//                    Row(Modifier.fillMaxSize()){
+//                        Text(page.toString())
+//                    }
+
+                        BackdropComponent(response.data.elementAt(parentPagerState.currentPage))
+
+
+
+                }
+            }
+
+
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class,
+    InternalCoroutinesApi::class,
+    ExperimentalPagerApi::class)
+@Composable
+fun BackdropComponent(
+    rental: Rental,
+    viewModel: SearchScreenViewModel = hiltViewModel(),
+) {
     rememberSystemUiController().isStatusBarVisible = false //status bar visible flag
     val backdropState = rememberBackdropScaffoldState(initialValue = BackdropValue.Concealed)
 
@@ -64,6 +112,7 @@ fun BackdropComponent( viewModel: SearchScreenViewModel = hiltViewModel()) {
     val halfHeightPx = with(LocalDensity.current) {
         halfHeightDp.dp.toPx()
     }
+    viewModel.getUserInfo(rental.userId!!)
     val userInfoState = viewModel.userInfoState
     BackdropScaffold(
         appBar = {        },
@@ -89,6 +138,11 @@ fun BackdropComponent( viewModel: SearchScreenViewModel = hiltViewModel()) {
                     .fillMaxSize()
                     .padding(horizontal = 16.dp)
             ) {
+
+
+                //getProfileImageUrl()
+
+
                 when (val response = userInfoState.value) {
                     is Response.Loading -> {
                         ProgressBar()
@@ -107,34 +161,13 @@ fun BackdropComponent( viewModel: SearchScreenViewModel = hiltViewModel()) {
     )
 }
 
-@ExperimentalPagerApi
-@Composable
-fun RentalPager() {
-    val pagerState = rememberPagerState(
-        pageCount = 2
-    )
 
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier
-                .weight(1f)
-        ) { page ->
-
-            BackdropComponent()
-
-        }
-    }
-}
 
 @ExperimentalPagerApi
 @Composable
 fun SearchImagePager() {
-    val pagerState = rememberPagerState(
-        pageCount = 3
+   val pagerState2 = rememberPagerState(
+        pageCount = 2
     )
     Column(
         modifier = Modifier.fillMaxSize()
@@ -142,7 +175,7 @@ fun SearchImagePager() {
 
         HorizontalPager(
             dragEnabled =  true,
-            state = pagerState,
+            state = pagerState2,
             modifier = Modifier
                 .weight(1f)
         ) { page ->
@@ -156,20 +189,14 @@ fun SearchImagePager() {
                         .background(Color.LightGray)
                         .align(Alignment.Center)
                 ) {
-                    when (page) {
-                        3 -> R.drawable.movie3
-                    }
+
+
                     Image(
                         painter = painterResource(
-                            id = when (page) {
-                                0 -> R.drawable.movie1
-                                1 -> R.drawable.movie2
-                                2 -> R.drawable.movie3
-                                else -> R.drawable.movie1
-                            }
+                            id = getImageResource(page)
                         ),
                         contentDescription = "Image",
-                        contentScale = ContentScale.Crop,
+                        contentScale = ContentScale.Inside,
                         modifier = Modifier.fillMaxSize()
                     )
 
@@ -180,3 +207,11 @@ fun SearchImagePager() {
             }
         }
     }
+
+
+private fun getImageResource(index: Int) = when (index) {
+    0 -> R.drawable.movie1
+    1 -> R.drawable.movie2
+    2 -> R.drawable.movie3
+    else -> R.drawable.movie1
+}
