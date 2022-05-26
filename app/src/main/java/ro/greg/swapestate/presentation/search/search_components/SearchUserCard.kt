@@ -26,6 +26,7 @@ import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.presentation.components.ProgressBar
 import ro.greg.swapestate.presentation.profile.ProfileViewModel
+import ro.greg.swapestate.presentation.search.SearchScreenViewModel
 
 
 @Composable
@@ -33,16 +34,17 @@ import ro.greg.swapestate.presentation.profile.ProfileViewModel
 @ExperimentalCoroutinesApi
 fun SearchUserCard(
     user: User,
-    viewModel: ProfileViewModel = hiltViewModel()
+    viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
 
 
-
+    viewModel.getProfileImageUrl(user.id!!)
     val profileImageUrlState = viewModel.getProfileImageUrlState
+
     Row(verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 15.dp, vertical = 20.dp)){
+            .padding(horizontal = 15.dp, vertical = 10.dp)){
         Card(
             shape = CircleShape,
             modifier = Modifier

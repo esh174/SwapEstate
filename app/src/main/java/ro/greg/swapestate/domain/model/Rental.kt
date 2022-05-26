@@ -19,5 +19,7 @@ data class Rental (
     var rentPeriod: Int? = 0,
     var deposit: Int? = 0,
     var comment: String? = null,
+    var imagesNumber: Int? = null,
+
 
 )

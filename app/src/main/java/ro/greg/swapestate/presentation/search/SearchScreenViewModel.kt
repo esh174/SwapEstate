@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import ro.greg.swapestate.domain.model.Rental
 import ro.greg.swapestate.domain.model.Response
@@ -26,11 +27,20 @@ class SearchScreenViewModel @Inject constructor(
     private val _getProfileImageUrlState = mutableStateOf<Response<String>>(Response.Success(""))
     val getProfileImageUrlState: State<Response<String>> = _getProfileImageUrlState
 
+
+    private val _getRentalImageUrlState = mutableStateOf<Response<String>>(Response.Success(""))
+    val getRentalImageUrlState: State<Response<String>> = _getRentalImageUrlState
+
     private val _userInfoState = mutableStateOf<Response<User?>>(Response.Loading)
     val userInfoState: State<Response<User?>> = _userInfoState
 
     private val _rentalsState = mutableStateOf<Response<MutableList<Rental>>>(Response.Loading)
     val rentalsState: State<Response<List<Rental>>> = _rentalsState
+
+
+
+
+
 
 
 
@@ -47,6 +57,16 @@ class SearchScreenViewModel @Inject constructor(
             }
         }
     }
+
+    fun getRentalImageUrl(rentalId:String, page : Int){
+        val imageName = rentalId + page.toString()
+        viewModelScope.launch {
+            cloudStorageUseCases.getImageUrl(imageName).collect { response ->
+                _getRentalImageUrlState.value = response
+            }
+        }
+    }
+
 
 
     fun getRentalsQuery(){

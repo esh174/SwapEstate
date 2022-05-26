@@ -20,7 +20,7 @@ fun RenterDecriptionScreen(
 
     ) {
         it.calculateTopPadding()
-        Text("RenterDecriptionScreen")
+        RenterDescriptionContent()
 
 
     }
