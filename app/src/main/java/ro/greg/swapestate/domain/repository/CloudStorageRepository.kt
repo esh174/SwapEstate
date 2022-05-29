@@ -13,6 +13,8 @@ interface CloudStorageRepository {
 
     suspend fun cloudStorageGetImageUrl(fileName  : String): Flow<Response<String>>
 
+    suspend fun cloudStorageGetSeveralImagesUrl(fileNameBase: String, fileCount: Int): Flow<Response<List<String>>>
+
 
 
 }

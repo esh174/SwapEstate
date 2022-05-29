@@ -2,7 +2,6 @@ package ro.greg.swapestate.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -23,8 +22,8 @@ import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.AddImageToClou
 import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.CloudStorageUseCases
 import ro.greg.swapestate.domain.use_case.auth_use_cases.*
 import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.GetImageUrl
+import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.GetSeveralImages
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.*
-import javax.inject.Named
 
 @Module
 @ExperimentalCoroutinesApi
@@ -84,7 +83,8 @@ class AppModule {
     @Provides
     fun provideCloudStorageUseCases(repository: CloudStorageRepository) = CloudStorageUseCases(
         addImageToCloudStorage = AddImageToCloudStorage(repository),
-        getImageUrl =  GetImageUrl(repository)
+        getImageUrl =  GetImageUrl(repository),
+        getSeveralImages = GetSeveralImages(repository)
     )
 
 

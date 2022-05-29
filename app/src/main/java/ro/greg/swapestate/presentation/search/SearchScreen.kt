@@ -1,7 +1,6 @@
 package ro.greg.swapestate.presentation.search
 
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -13,43 +12,42 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.Coil
 import coil.annotation.ExperimentalCoilApi
+import coil.compose.AsyncImage
+import coil.compose.AsyncImagePainter.State.Empty.painter
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
+import coil.size.Size
 import com.google.accompanist.pager.*
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.launch
 import ro.greg.shtistorm.presentation.theme.LightTextColor
 import ro.greg.shtistorm.presentation.theme.PrimaryColor
 import ro.greg.swapestate.R
-import ro.greg.swapestate.core.Constants
-import ro.greg.swapestate.core.Utils
 import ro.greg.swapestate.domain.model.Rental
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.presentation.components.BottomNavigationBar
 import ro.greg.swapestate.presentation.components.ProgressBar
-import ro.greg.swapestate.presentation.navigation.Screen
-import ro.greg.swapestate.presentation.profile.components.ProfileCard
 import ro.greg.swapestate.presentation.search.search_components.SearchUserCard
-import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun SearchScreen(
     navController: NavController,
+
 ) {
     Scaffold(
         bottomBar = {
@@ -57,8 +55,8 @@ fun SearchScreen(
         }
     ) {
         it.calculateTopPadding()
-        RentalPager()
 
+        RentalPager()
     }
 
 }
@@ -89,13 +87,7 @@ fun RentalPager(
                     modifier = Modifier
                         .weight(1f)
                 ) { page ->
-//                    Row(Modifier.fillMaxSize()){
-//                        Text(page.toString())
-//                    }
-
                         BackdropComponent(response.data.elementAt(parentPagerState.currentPage))
-
-
 
                 }
             }
@@ -113,16 +105,13 @@ fun BackdropComponent(
     rental: Rental,
     viewModel: SearchScreenViewModel = hiltViewModel(),
 ) {
-    rememberSystemUiController().isStatusBarVisible = false //status bar visible flag
+    viewModel.getRentalImagesUrl(rentalId  = rental.id!!, count = rental.imagesNumber!!)
     val backdropState = rememberBackdropScaffoldState(initialValue = BackdropValue.Concealed)
 
     LaunchedEffect(backdropState) {
         backdropState.reveal()
     }
-    val singapore = LatLng(1.35, 103.87)
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(singapore, 50f)
-    }
+
 
     val offset by backdropState.offset
     val halfHeightDp = LocalConfiguration.current.screenHeightDp / 4
@@ -141,11 +130,11 @@ fun BackdropComponent(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White)
+                    .background(Color.Transparent)
                     .alpha(offset / halfHeightPx)
             ) {
 
-                SearchImagePager(rental.id!!)
+                SearchImagePager(rental = rental)
             }
         },
         frontLayerContent = {
@@ -256,7 +245,7 @@ fun BackdropComponent(
 
                 val singapore = LatLng(1.35, 103.87)
                 val cameraPositionState = rememberCameraPositionState {
-                    position = CameraPosition.fromLatLngZoom(singapore, 10f)
+                    position = CameraPosition.fromLatLngZoom(singapore, 50f)
                 }
                 Box(
                     modifier = Modifier
@@ -416,11 +405,20 @@ fun BackdropComponent(
 @ExperimentalPagerApi
 @Composable
 fun SearchImagePager(
-    rentalId: String,
-    viewModel: SearchScreenViewModel = hiltViewModel(),) {
+    viewModel: SearchScreenViewModel = hiltViewModel(),
+    rental: Rental
+    ) {
    val pagerState2 = rememberPagerState(
-        pageCount = 2
+        pageCount = rental.imagesNumber!!
     )
+
+    when (val getRentalImagesUrlResponse = viewModel.getRentalImagesUrlState.value) {
+        is Response.Loading -> {
+            ProgressBar()
+        }
+        is Response.Success -> {
+
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -431,7 +429,7 @@ fun SearchImagePager(
             modifier = Modifier
                 .weight(1f)
         ) { page ->
-//            viewModel.getRentalImageUrl(rentalId  = rentalId, page = pagerState2.currentPage)
+//
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -442,44 +440,22 @@ fun SearchImagePager(
                         .background(Color.LightGray)
                         .align(Alignment.Center)
                 ) {
-
-                    when (val getRentalImageUrlResponse = viewModel.getRentalImageUrlState.value) {
-                        is Response.Loading -> {
-                            ProgressBar()
-                        }
-                        is Response.Success -> {
-                            Image(
-                                painter = rememberImagePainter(
-                                    data = getRentalImageUrlResponse.data
-                                ),
-                                contentDescription = "Image",
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.fillMaxSize()
-                            )
-                        }
-                    }
-
-
-
-
-
+                    AsyncImage(
+                        model = getRentalImagesUrlResponse.data.elementAt(page),
+                        contentDescription = "Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
                     }
                 }
             }
         }
     }
-
-@OptIn(ExperimentalCoilApi::class)
-@Composable
-fun getImageResource(index: Int) = when (index) {
-    0 -> Image(
-        painter = rememberImagePainter(
-            data = R.drawable.movie3
-
-        ),
-        contentDescription = "Image",
-    )
-    1 -> R.drawable.movie2
-    2 -> R.drawable.movie3
-    else -> R.drawable.movie1
+    }
 }
+
+
+
+
+
+

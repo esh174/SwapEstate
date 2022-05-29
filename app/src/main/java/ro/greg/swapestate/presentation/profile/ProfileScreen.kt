@@ -1,9 +1,11 @@
 package ro.greg.swapestate.presentation.profile
 
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -24,6 +26,7 @@ fun ProfileScreen(
 
 
     Scaffold(
+        modifier = Modifier.systemBarsPadding(),
         topBar = {
             ProfileTopBar(navController = navController,
                 signOut = { viewModel.signOut() })

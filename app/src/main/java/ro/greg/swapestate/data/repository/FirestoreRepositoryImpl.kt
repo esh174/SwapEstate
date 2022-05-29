@@ -1,6 +1,5 @@
 package ro.greg.swapestate.data.repository
 
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -14,7 +13,6 @@ import ro.greg.swapestate.domain.model.Response.*
 import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.domain.repository.FirestoreRepository
 import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Singleton
 
 

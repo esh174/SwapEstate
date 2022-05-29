@@ -65,8 +65,9 @@ fun ProfileCard(
                         ),
                         contentDescription = null,
                         modifier = Modifier
-                            .wrapContentSize(),
+                            .fillMaxWidth(),
                         contentScale = ContentScale.Crop
+
                     )
                 }
             }

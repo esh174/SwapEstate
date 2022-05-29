@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarConfig
@@ -60,12 +61,11 @@ fun SearchUserCard(
                 is Response.Success -> {
                     Image(
 
-                        painter = rememberImagePainter(
-                            data = response.data
+                        painter = rememberAsyncImagePainter(model = response.data
                         ),
                         contentDescription = null,
                         modifier = Modifier
-                            .wrapContentSize(),
+                            .fillMaxWidth(),
                         contentScale = ContentScale.Crop
                     )
                 }

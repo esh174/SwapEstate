@@ -5,13 +5,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ro.greg.swapestate.domain.model.Rental
 import ro.greg.swapestate.domain.model.Response
-import ro.greg.swapestate.domain.model.User
-import ro.greg.swapestate.domain.use_case.auth_use_cases.AuthUseCases
 import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.CloudStorageUseCases
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.FirestoreUseCases
 import javax.inject.Inject
