@@ -61,7 +61,7 @@ fun SignUpScreenContent(
             Password(
                 label = Constants.CONFIRM_PASSWORD,
                 passwordState = confirmPasswordState,
-                onImeAction = { signUpWithEmail },
+                onImeAction = { signUpWithEmail(emailState.text, passwordState.text) },
                 modifier = Modifier.focusRequester(confirmationPasswordFocusRequest)
             )
 

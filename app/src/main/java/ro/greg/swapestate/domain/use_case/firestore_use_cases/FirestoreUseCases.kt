@@ -7,5 +7,9 @@ data class FirestoreUseCases(
     val addUserInfo: AddUserInfo,
     val getUserInfo: GetUserInfo,
     val addRental : AddRental,
-    val getRentals : GetRentals
+    val getRentals : GetRentals,
+    val getChats : GetChats,
+    val getChat : GetChat,
+    val getChatCard : GetChatCard,
+
 )

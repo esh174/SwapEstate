@@ -32,7 +32,6 @@ object Constants {
     //Screens
     const val SPLASH_SCREEN = "Splash"
     const val AUTH_SCREEN = "Sign in"
-
     const val SIGN_UP_SCREEN = "Sign up"
     const val USER_DETAILS_SCREEN = "User details"
     const val RENTER_DESCRIPTION_SCREEN = "RENTER_DESCRIPTION_SCREEN"
@@ -40,6 +39,9 @@ object Constants {
     const val PROFILE_SCREEN = "Profile"
     const val SEARCH_SCREEN = "Search"
     const val CHATS_SCREEN = "Chats"
+    const val CHAT_SCREEN = "Chat"
+
+    const val PARAM_CHAT_ID = "chatId"
 
     //Messages
     const val WELCOME_MESSAGE = "Welcome to our app."

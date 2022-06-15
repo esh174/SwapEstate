@@ -9,7 +9,8 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.presentation.auth.AuthScreen
-import ro.greg.swapestate.presentation.chats.ChatsScreen
+import ro.greg.swapestate.presentation.chat.ChatScreen
+import ro.greg.swapestate.presentation.chats_list.ChatsListScreen
 import ro.greg.swapestate.presentation.profile.ProfileScreen
 import ro.greg.swapestate.presentation.rental_add.RentalAddScreen
 import ro.greg.swapestate.presentation.renter_description.RenterDecriptionScreen
@@ -80,9 +81,16 @@ fun NavGraph (
             )
         }
         composable(
-            Screen.ChatsScreen.route
+            Screen.ChatsListScreen.route
         ) {
-            ChatsScreen(
+            ChatsListScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.ChatScreen.route + "/{chatId}"
+        ) {
+            ChatScreen(
                 navController = navController
             )
         }

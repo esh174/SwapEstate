@@ -4,8 +4,16 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.toObjects
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 import ro.greg.swapestate.domain.model.Rental
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.User
@@ -82,4 +90,56 @@ class SearchScreenViewModel @Inject constructor(
         }
     }
 
+    private val currentUserId get() = authUseCases.getUserUid()
+
+      fun  getChatId(rental: Rental): String {
+          val result: String
+          runBlocking {
+              val chat = FirebaseFirestore.getInstance().collection("chats")
+                  .whereEqualTo("rentalId", rental.id)
+                  .whereArrayContains("userList", currentUserId).get().await()
+              if (chat.isEmpty) {
+                  val chatId = FirebaseFirestore.getInstance().collection("chats")
+                      .document().id
+                  val chat1 = hashMapOf(
+                      "id" to chatId,
+                      "userList" to arrayListOf(currentUserId, rental.userId!!),
+                      "rentalId" to rental.id,
+
+
+                      )
+                  FirebaseFirestore.getInstance().collection("chats").document(chatId).set(chat1)
+                  FirebaseFirestore.getInstance().collection("users")
+                      .document(currentUserId)
+                      .update("chatsList", FieldValue.arrayUnion(chatId))
+                  FirebaseFirestore.getInstance().collection("users")
+                      .document(rental.userId!!)
+                      .update("chatsList", FieldValue.arrayUnion(chatId))
+                  result = chatId
+
+              } else {
+                  result = chat.documents[0].data!!.get("id") as String
+
+              }
+          }
+          return result
+      }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

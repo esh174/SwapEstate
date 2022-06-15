@@ -9,5 +9,6 @@ data class User (
     var phone : String? = null,
     var userType : String? = null,
     var rating: Double = 0.0,
-    var reviewsNumber: Int = 0
+    var reviewsNumber: Int = 0,
+    var chatsList: List<String>? = null,
 )
