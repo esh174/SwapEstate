@@ -27,15 +27,21 @@ class ChatViewModel @Inject
 constructor(
     private val authUseCases: AuthUseCases,
     private val firestoreUseCases: FirestoreUseCases,
+    private val cloudStorageUseCases: CloudStorageUseCases,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
+    private val userUid get() = authUseCases.getUserUid()
+
+
 
     private val _userInfoState = mutableStateOf<Response<User?>>(Response.Loading)
     val userInfoState: State<Response<User?>> = _userInfoState
 
-    private val _getChatState = mutableStateOf<Response<Rental?>>(Response.Loading)
-    val getChatState: State<Response<Rental?>> = _getChatState
+    private val _getChatState = mutableStateOf<Response<Chat?>>(Response.Loading)
+    val getChatState: State<Response<Chat?>> = _getChatState
 
+    private val _getProfileImageUrlState = mutableStateOf<Response<String>>(Response.Success(""))
+    val getProfileImageUrlState: State<Response<String>> = _getProfileImageUrlState
 
     init {
         savedStateHandle.get<String>(Constants.PARAM_CHAT_ID)?.let{
@@ -43,18 +49,6 @@ constructor(
             getChat(chatId)
         }
     }
-//
-//     fun getChat(chatId: String): Rental {
-//         val rental: Rental
-//         runBlocking {
-//             val chatResp =  FirebaseFirestore.getInstance().collection("chats")
-//                 .document(chatId).get().await().toObject(Chat::class.java)
-//             rental = FirebaseFirestore.getInstance().collection("rentals")
-//                 .document(chatResp!!.rentalId!!).get().await().toObject(Rental::class.java)!!
-//         }
-//         return rental
-//    }
-
 
 
      fun getChat(chatId: String) {
@@ -64,6 +58,19 @@ constructor(
              }
          }
      }
+
+    fun getUserId(chat: Chat): String? {
+        val id = chat.userList?.filter { s -> s != userUid }?.single()
+        return id
+    }
+
+    fun getProfileImageUrl(userUid: String){
+        viewModelScope.launch {
+            cloudStorageUseCases.getImageUrl(userUid).collect { response ->
+                _getProfileImageUrlState.value = response
+            }
+        }
+    }
 
 
     fun getUserInfo(userUid:String){

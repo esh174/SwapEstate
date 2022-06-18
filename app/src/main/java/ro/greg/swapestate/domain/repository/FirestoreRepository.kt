@@ -22,9 +22,9 @@ interface FirestoreRepository {
 
     suspend fun firestoreGetChats(user: User): Flow<Response<List<Chat>>>
 
-    suspend fun firestoreGetChat(chatId: String): Flow<Response<Rental?>>
+    suspend fun firestoreGetChat(chatId: String): Flow<Response<Chat?>>
 
-    suspend fun firestoreGetChatCard(ownerId: String, rentalId: String): Flow<Response<HashMap<String, String>>>
+    suspend fun firestoreGetChatCard(ownerId: String, rentalId: String): Flow<Response<HashMap<String, String?>>>
 
 
 }

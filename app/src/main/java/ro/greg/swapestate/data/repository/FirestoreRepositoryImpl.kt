@@ -127,43 +127,23 @@ class FirestoreRepositoryImpl @Inject constructor(
 
         }
 
-//    override suspend fun firestoreGetChat(chatId: String) = callbackFlow {
-//
-//        val chat =  chatsRef.document(chatId).get().await().toObject(Chat::class.java)
-//        val rentalsSnapshotListener = chat?.let { rentalsRef.document(it.rentalId) }
-//            ?.addSnapshotListener{ snapshot, e ->
-//                val response = if (snapshot != null) {
-//                    val chatRental = snapshot.toObject(Rental::class.java)
-//                    Success(chatRental)
-//                } else {
-//                    Error(e?.message ?: e.toString())
-//                }
-//                trySend(response).isSuccess
-//            }
-//        awaitClose {
-//            rentalsSnapshotListener?.remove()
-//        }
-//    }
+
+
 
     override suspend fun firestoreGetChat(chatId: String) = callbackFlow {
-
-        val chat =  chatsRef.document(chatId).get().await().toObject(Chat::class.java)
-        val rentalsSnapshotListener = chat?.let { rentalsRef.document(it.rentalId) }
-            ?.addSnapshotListener{ snapshot, e ->
+        val snapshotListener = chatsRef.document(chatId).addSnapshotListener{ snapshot, e ->
                 val response = if (snapshot != null) {
-                    val chatRental = snapshot.toObject(Rental::class.java)
-                    Success(chatRental)
+                    val chat = snapshot.toObject(Chat::class.java)
+                    Success(chat)
                 } else {
                     Error(e?.message ?: e.toString())
                 }
                 trySend(response).isSuccess
             }
         awaitClose {
-            rentalsSnapshotListener?.remove()
+            snapshotListener?.remove()
         }
     }
-
-
 
 
 
@@ -172,22 +152,22 @@ class FirestoreRepositoryImpl @Inject constructor(
             emit(Loading)
 
             val chatDesc =  coroutineScope {
-                val user = async {
+                val user = runBlocking {
                     FirebaseFirestore.getInstance().collection("users")
                         .document(ownerId).get().await().toObject(User::class.java)
-                }.await()
-                val rental = async {
+                }
+                val rental = runBlocking {
                     FirebaseFirestore.getInstance().collection("rentals")
                         .document(rentalId).get().await().toObject(Rental::class.java)
-                }.await()
+                }
 
                 val chatDesc = async {hashMapOf(
-                    "username" to "user!!.name",
-                    "rentalName" to "rental!!.roomNumber!!".toString()
+                    "username" to user!!.name,
+                    "rentalName" to rental!!.roomNumber!!.toString()
                             + "-bedroom "
-                            + "rental.rentalType"
+                            + rental.rentalType
                             + ", "
-                            + "rental.location"
+                            + rental.location
                 )}
                 chatDesc.await()
             }
