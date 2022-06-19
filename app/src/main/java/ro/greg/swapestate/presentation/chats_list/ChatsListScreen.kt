@@ -47,9 +47,9 @@ fun ChatsListScreen(
                 LazyColumn {
                     items(
                         items = chatsResponse.data
-                    ) { chats ->
-
-                        ChatCard(chat = chats,navController = navController)
+                    ) { chat ->
+                        System.currentTimeMillis()
+                        ChatCard(chat = chat,navController = navController)
                     }
                 }
                 Box(

@@ -45,12 +45,12 @@ fun ChatTopBar(
         backgroundColor = BackgroundColor,
         title = {
             Row(
-
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth(),
 
                 ) {
                 Row(
-                    verticalAlignment = Alignment.CenterVertically,
+
                     horizontalArrangement = Arrangement.Start
                 ) {
                     Icon(
@@ -65,7 +65,7 @@ fun ChatTopBar(
                     Card(
                         shape = CircleShape,
                         modifier = Modifier
-                            .size(60.dp),
+                            .size(50.dp),
                         elevation = 0.dp,
 
                         ) {
@@ -92,19 +92,22 @@ fun ChatTopBar(
                     }
 
                 }
-                when (val response = viewModel.userInfoState.value) {
-                    is Response.Loading -> {
-                        ProgressBar()
-                    }
-                    is Response.Success -> {
-                        response.data!!.name?.let {
-                            Text(
-                                text = it,
-                                fontSize = 18.sp
-                            )
+                Row(modifier = Modifier.padding(horizontal = 10.dp)){
+                    when (val response = viewModel.userInfoState.value) {
+                        is Response.Loading -> {
+                            ProgressBar()
+                        }
+                        is Response.Success -> {
+                            response.data!!.name?.let {
+                                Text(
+                                    text = it,
+                                    fontSize = 18.sp
+                                )
+                            }
                         }
                     }
                 }
+
             }
         }
 

@@ -13,6 +13,7 @@ import kotlinx.coroutines.tasks.await
 import ro.greg.swapestate.core.Constants.RENTALS
 import ro.greg.swapestate.core.Constants.USERS
 import ro.greg.swapestate.domain.model.Chat
+import ro.greg.swapestate.domain.model.Message
 import ro.greg.swapestate.domain.model.Rental
 import ro.greg.swapestate.domain.model.Response.*
 import ro.greg.swapestate.domain.model.User
@@ -180,12 +181,48 @@ class FirestoreRepositoryImpl @Inject constructor(
     }
 
 
+    override suspend fun firestoreAddMessage(message: Message, chatId: String) = flow {
+        try {
+            emit(Loading)
+            val messageId = chatsRef.document(chatId)
+                .collection("messages").get().await().documents.size
+            val firebaseId = chatsRef.document(chatId)
+                .collection("messages").document().id
+            message.id = messageId
+            val addition = chatsRef.document(chatId)
+                .collection("messages").document(firebaseId).set(message).await()
+            emit(Success(addition))
+        } catch (e: Exception) {
+            emit(Error(e.message ?: e.toString()))
+        }
+    }
 
 
+    override suspend fun firestoreGetMessages(chatId: String) = callbackFlow {
 
+        val snapshotListener =  chatsRef.document(chatId).collection("messages")
+            .orderBy("id")
+            .addSnapshotListener{ snapshot, e ->
+                val response = if (snapshot != null) {
+                    val messages = snapshot.toObjects(Message::class.java)
+                    Success(messages)
+                } else {
+                    Error(e?.message ?: e.toString())
+                }
+                trySend(response).isSuccess
+            }
+        awaitClose {
+            snapshotListener.remove()
+        }
+
+        }
 
 
     }
+
+
+
+
 
 
 

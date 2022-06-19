@@ -2,10 +2,7 @@ package ro.greg.swapestate.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import ro.greg.swapestate.domain.model.Chat
-import ro.greg.swapestate.domain.model.Rental
-import ro.greg.swapestate.domain.model.Response
-import ro.greg.swapestate.domain.model.User
+import ro.greg.swapestate.domain.model.*
 
 
 interface FirestoreRepository {
@@ -26,5 +23,7 @@ interface FirestoreRepository {
 
     suspend fun firestoreGetChatCard(ownerId: String, rentalId: String): Flow<Response<HashMap<String, String?>>>
 
+    suspend fun firestoreAddMessage(message: Message, chatId: String): Flow<Response<Void?>>
 
+    suspend fun firestoreGetMessages(chatId: String): Flow<Response<MutableList<Message>>>
 }

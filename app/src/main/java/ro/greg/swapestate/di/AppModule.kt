@@ -69,6 +69,8 @@ class AppModule {
         getChats = GetChats(repository),
         getChat = GetChat(repository),
         getChatCard = GetChatCard(repository),
+         getMessages = GetMessages(repository),
+        addMessage = AddMessage(repository),
     )
 
     @Provides
