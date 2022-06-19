@@ -167,7 +167,7 @@ fun ProfileContent(
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "10 received reviews",
+                            text = "1 received review",
                             fontSize = 20.sp
                         )
                     }

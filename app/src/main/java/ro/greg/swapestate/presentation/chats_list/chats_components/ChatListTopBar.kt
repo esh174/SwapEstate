@@ -74,7 +74,7 @@ fun ChatListTopBar(
                         modifier = Modifier
                             .padding(16.dp)
                             .clickable {
-
+                                navController.navigate(Constants.PLANNED_MESSAGES_SCREEN)
                             }
                     )
                 }

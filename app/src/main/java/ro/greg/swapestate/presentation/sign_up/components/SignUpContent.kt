@@ -75,8 +75,8 @@ fun SignUpScreenContent(
 
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                modifier = Modifier.padding(16.dp)
-                    .fillMaxWidth(),
+                        modifier = Modifier.padding(16.dp)
+                            .fillMaxWidth(),
                 onClick = {
                     signUpWithEmail(emailState.text, passwordState.text)
                     navController.navigate(Constants.USER_DETAILS_SCREEN)

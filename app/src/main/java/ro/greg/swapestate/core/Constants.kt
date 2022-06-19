@@ -41,6 +41,9 @@ object Constants {
     const val CHATS_SCREEN = "Chats"
     const val CHAT_SCREEN = "Chat"
     const val REVIEWS_SCREEN = "Reviews"
+    const val PLANNED_MESSAGES_SCREEN = "Planned Messages"
+    const val PLANNED_MESSAGES_TEMPLATE_SCREEN = "Planned Messages Template"
+
 
     const val PARAM_CHAT_ID = "chatId"
     const val PARAM_USER_ID = "userId"
