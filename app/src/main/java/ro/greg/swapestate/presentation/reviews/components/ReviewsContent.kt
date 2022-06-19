@@ -53,171 +53,174 @@ fun ReviewsContent(
             ,
         ) {
             Divider(color = Color.LightGray, thickness = 1.dp)
-            Card(modifier = Modifier
-                .fillMaxWidth(),
-                elevation = 4.dp,
-                shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)
-            ) {
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 10.dp)
-                        .background(color = SurfaceColor),
-                ) {
-
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RatingBar(
-                            value = viewModel.avgRating.toFloat(),
-                            config = RatingBarConfig()
-                                .activeColor(PrimaryColor)
-                                .inactiveColor(Color.LightGray)
-                                .stepSize(StepSize.HALF)
-                                .isIndicator(true)
-                                .size(20.dp)
-                                .style(RatingBarStyle.HighLighted),
-                            onValueChange = {
-                            },
-                            onRatingChanged = {
-                            }
-                        )
-                        Text(
-                            fontWeight = FontWeight.Bold,
-                            text = viewModel.avgRating.toString()+"/5.0",
-                            fontSize = 25.sp,
-                            modifier = Modifier.padding(8.dp)
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier
-                        .fillMaxWidth()
-                    ){
-                            Row(
-                                horizontalArrangement = Arrangement.Start,
-                                modifier = Modifier
-                                    .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
-                            ){
-                            Text(
-                                fontSize = 22.sp,
-                                text = "Excellent")
-                            }
-                            Row(
-                                horizontalArrangement = Arrangement.End,
-                                modifier = Modifier
-                                    .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
-                            ){
-                                Text(fontWeight = FontWeight.Bold,
-                                    fontSize = 22.sp,
-                                    text = viewModel.reviewsByStars[5].toString())
-                            }
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    ){
-                        Row(
-                            horizontalArrangement = Arrangement.Start,
-                            modifier = Modifier
-                                .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
-                        ){
-                            Text(
-                                fontSize = 22.sp,
-                                text = "Very Good")
-                        }
-                        Row(
-                            horizontalArrangement = Arrangement.End,
-                            modifier = Modifier
-                                .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
-                        ){
-                            Text(fontWeight = FontWeight.Bold,
-                                fontSize = 22.sp,
-                                text = viewModel.reviewsByStars[4].toString())
-                        }
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    ){
-                        Row(
-                            horizontalArrangement = Arrangement.Start,
-                            modifier = Modifier
-                                .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
-                        ){
-                            Text(
-                                fontSize = 22.sp,
-                                text = "Good")
-                        }
-                        Row(
-                            horizontalArrangement = Arrangement.End,
-                            modifier = Modifier
-                                .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
-                        ){
-                            Text(fontWeight = FontWeight.Bold,
-                                fontSize = 22.sp,
-                                text = viewModel.reviewsByStars[3].toString())
-                        }
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    ){
-                        Row(
-                            horizontalArrangement = Arrangement.Start,
-                            modifier = Modifier
-                                .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
-                        ){
-                            Text(
-                                fontSize = 22.sp,
-                                text = "Fair")
-                        }
-                        Row(
-                            horizontalArrangement = Arrangement.End,
-                            modifier = Modifier
-                                .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
-                        ){
-                            Text(fontWeight = FontWeight.Bold,
-                                fontSize = 22.sp,
-                                text = viewModel.reviewsByStars[2].toString())
-                        }
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom =  10.dp)
-                    ){
-                        Row(
-                            horizontalArrangement = Arrangement.Start,
-                            modifier = Modifier
-                                .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
-                        ){
-                            Text(
-                                fontSize = 22.sp,
-                                text = "Poor")
-                        }
-                        Row(
-                            horizontalArrangement = Arrangement.End,
-                            modifier = Modifier
-                                .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
-                        ){
-                            Text(fontWeight = FontWeight.Bold,
-                                fontSize = 22.sp,
-                                text = viewModel.reviewsByStars[1].toString())
-                        }
-                    }
-
-
-                }
-            }
 
             when(val reviewsResponse = viewModel.getReviewsState.value) {
                 is Response.Loading -> ProgressBar()
                 is Response.Success -> Box(
                 ) {
-                    LazyColumn {
+
+                    LazyColumn(userScrollEnabled = true) {
+                        item {
+                            Card(modifier = Modifier
+                                .fillMaxWidth(),
+                                elevation = 4.dp,
+                                shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)
+                            ) {
+
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(horizontal = 10.dp)
+                                        .background(color = SurfaceColor),
+                                ) {
+
+
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        RatingBar(
+                                            value = viewModel.avgRating.toFloat(),
+                                            config = RatingBarConfig()
+                                                .activeColor(PrimaryColor)
+                                                .inactiveColor(Color.LightGray)
+                                                .stepSize(StepSize.HALF)
+                                                .isIndicator(true)
+                                                .size(20.dp)
+                                                .style(RatingBarStyle.HighLighted),
+                                            onValueChange = {
+                                            },
+                                            onRatingChanged = {
+                                            }
+                                        )
+                                        Text(
+                                            fontWeight = FontWeight.Bold,
+                                            text = viewModel.avgRating.toString()+"/5.0",
+                                            fontSize = 25.sp,
+                                            modifier = Modifier.padding(8.dp)
+                                        )
+                                    }
+
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                    ){
+                                        Row(
+                                            horizontalArrangement = Arrangement.Start,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
+                                        ){
+                                            Text(
+                                                fontSize = 22.sp,
+                                                text = "Excellent")
+                                        }
+                                        Row(
+                                            horizontalArrangement = Arrangement.End,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
+                                        ){
+                                            Text(fontWeight = FontWeight.Bold,
+                                                fontSize = 22.sp,
+                                                text = viewModel.reviewsByStars[5].toString())
+                                        }
+                                    }
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                    ){
+                                        Row(
+                                            horizontalArrangement = Arrangement.Start,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
+                                        ){
+                                            Text(
+                                                fontSize = 22.sp,
+                                                text = "Very Good")
+                                        }
+                                        Row(
+                                            horizontalArrangement = Arrangement.End,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
+                                        ){
+                                            Text(fontWeight = FontWeight.Bold,
+                                                fontSize = 22.sp,
+                                                text = viewModel.reviewsByStars[4].toString())
+                                        }
+                                    }
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                    ){
+                                        Row(
+                                            horizontalArrangement = Arrangement.Start,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
+                                        ){
+                                            Text(
+                                                fontSize = 22.sp,
+                                                text = "Good")
+                                        }
+                                        Row(
+                                            horizontalArrangement = Arrangement.End,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
+                                        ){
+                                            Text(fontWeight = FontWeight.Bold,
+                                                fontSize = 22.sp,
+                                                text = viewModel.reviewsByStars[3].toString())
+                                        }
+                                    }
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                    ){
+                                        Row(
+                                            horizontalArrangement = Arrangement.Start,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
+                                        ){
+                                            Text(
+                                                fontSize = 22.sp,
+                                                text = "Fair")
+                                        }
+                                        Row(
+                                            horizontalArrangement = Arrangement.End,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
+                                        ){
+                                            Text(fontWeight = FontWeight.Bold,
+                                                fontSize = 22.sp,
+                                                text = viewModel.reviewsByStars[2].toString())
+                                        }
+                                    }
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(bottom =  10.dp)
+                                    ){
+                                        Row(
+                                            horizontalArrangement = Arrangement.Start,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 1.3).dp),
+                                        ){
+                                            Text(
+                                                fontSize = 22.sp,
+                                                text = "Poor")
+                                        }
+                                        Row(
+                                            horizontalArrangement = Arrangement.End,
+                                            modifier = Modifier
+                                                .width(((LocalConfiguration.current.screenWidthDp) / 3.7).dp)
+                                        ){
+                                            Text(fontWeight = FontWeight.Bold,
+                                                fontSize = 22.sp,
+                                                text = viewModel.reviewsByStars[1].toString())
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }
                         items(
                             items = reviewsResponse.data
                         ) { review ->

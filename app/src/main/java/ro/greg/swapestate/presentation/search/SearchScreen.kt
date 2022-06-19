@@ -158,8 +158,9 @@ fun BackdropComponent(
                     }
                     is Response.Success -> {
                         response.data?.let {
-                            SearchUserCard(
-                                user = it
+                            SearchUserCard( user = it,
+                                navController = navController,
+                                viewModel= viewModel
                             )
                         }
                     }

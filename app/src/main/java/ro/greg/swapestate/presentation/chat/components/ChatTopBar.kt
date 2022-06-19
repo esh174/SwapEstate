@@ -15,13 +15,19 @@ import androidx.compose.material.icons.filled.Tune
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
+import com.gowtham.ratingbar.RatingBar
+import com.gowtham.ratingbar.RatingBarConfig
+import com.gowtham.ratingbar.RatingBarStyle
+import com.gowtham.ratingbar.StepSize
 import ro.greg.shtistorm.presentation.theme.BackgroundColor
 import ro.greg.shtistorm.presentation.theme.OnSurfaceColor
 import ro.greg.shtistorm.presentation.theme.PrimaryColor
@@ -98,12 +104,43 @@ fun ChatTopBar(
                             ProgressBar()
                         }
                         is Response.Success -> {
-                            response.data!!.name?.let {
-                                Text(
-                                    text = it,
-                                    fontSize = 18.sp
-                                )
+                            Column() {
+                                response.data!!.name?.let {
+                                    Text(
+                                        text = it,
+                                        fontSize = 18.sp
+                                    )
+                                }
+                                Row(
+                                    modifier = Modifier
+                                        .clickable {
+                                            navController.navigate("${Constants.REVIEWS_SCREEN}/${viewModel.getUserId(chat)}")
+                                                   },
+                                    verticalAlignment = Alignment.CenterVertically
+                                ){
+                                    RatingBar(
+                                        value = response.data!!.rating.toFloat(),
+                                        config =  RatingBarConfig()
+                                            .activeColor(PrimaryColor)
+                                            .inactiveColor(Color.LightGray)
+                                            .stepSize(StepSize.HALF)
+                                            .isIndicator(true)
+                                            .size(13.dp)
+                                            .style(RatingBarStyle.HighLighted),
+                                        onValueChange = {
+                                        },
+                                        onRatingChanged = {
+                                        }
+                                    )
+                                    Text(
+                                        fontWeight = FontWeight.Bold,
+                                        text = response.data!!.rating.toString(),
+                                        fontSize = 18.sp,
+                                        modifier = Modifier.padding(8.dp)
+                                    )
+                                }
                             }
+
                         }
                     }
                 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.gowtham.ratingbar.RatingBar
@@ -23,6 +25,7 @@ import com.gowtham.ratingbar.StepSize
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.shtistorm.presentation.theme.PrimaryColor
+import ro.greg.swapestate.core.Constants
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.presentation.components.ProgressBar
@@ -30,12 +33,14 @@ import ro.greg.swapestate.presentation.profile.ProfileViewModel
 import ro.greg.swapestate.presentation.search.SearchScreenViewModel
 
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 fun SearchUserCard(
+    navController : NavController,
     user: User,
-    viewModel: SearchScreenViewModel = hiltViewModel()
+    viewModel: SearchScreenViewModel
 ) {
 
 
@@ -52,6 +57,7 @@ fun SearchUserCard(
                 .padding(15.dp)
                 .size(80.dp),
             elevation = 0.dp,
+            onClick = {navController.navigate("${Constants.REVIEWS_SCREEN}/${user.id}")}
 
             ) {
             when (val response = profileImageUrlState.value) {
