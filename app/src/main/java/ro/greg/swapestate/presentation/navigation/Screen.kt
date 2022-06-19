@@ -5,6 +5,7 @@ import ro.greg.swapestate.core.Constants.AUTH_SCREEN
 import ro.greg.swapestate.core.Constants.CHATS_SCREEN
 import ro.greg.swapestate.core.Constants.CHAT_SCREEN
 import ro.greg.swapestate.core.Constants.PROFILE_SCREEN
+import ro.greg.swapestate.core.Constants.REVIEWS_SCREEN
 import ro.greg.swapestate.core.Constants.SEARCH_SCREEN
 
 sealed class Screen(val route: String) {
@@ -17,4 +18,5 @@ sealed class Screen(val route: String) {
     object SearchScreen: Screen(SEARCH_SCREEN)
     object ChatsListScreen: Screen(CHATS_SCREEN)
     object ChatScreen: Screen(CHAT_SCREEN)
+    object ReviewsScreen: Screen(REVIEWS_SCREEN)
 }

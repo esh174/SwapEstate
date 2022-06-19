@@ -36,7 +36,7 @@ fun ProfileScreen(
         }
     ) {
         it.calculateTopPadding()
-        ProfileContent()
+        ProfileContent(navController=  navController,viewModel = viewModel)
     }
 
 

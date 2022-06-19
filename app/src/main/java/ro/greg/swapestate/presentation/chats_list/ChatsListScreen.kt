@@ -48,7 +48,7 @@ fun ChatsListScreen(
                     items(
                         items = chatsResponse.data
                     ) { chat ->
-                        System.currentTimeMillis()
+
                         ChatCard(chat = chat,navController = navController)
                     }
                 }

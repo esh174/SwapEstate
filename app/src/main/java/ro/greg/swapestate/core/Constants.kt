@@ -40,8 +40,10 @@ object Constants {
     const val SEARCH_SCREEN = "Search"
     const val CHATS_SCREEN = "Chats"
     const val CHAT_SCREEN = "Chat"
+    const val REVIEWS_SCREEN = "Reviews"
 
     const val PARAM_CHAT_ID = "chatId"
+    const val PARAM_USER_ID = "userId"
 
     //Messages
     const val WELCOME_MESSAGE = "Welcome to our app."

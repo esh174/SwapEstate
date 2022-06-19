@@ -94,7 +94,7 @@ fun ProfileCard(
                         verticalAlignment = Alignment.CenterVertically
                     ){
                         RatingBar(
-                            value = rating.toFloat(),
+                            value = 5.toFloat(),
                             config =  RatingBarConfig()
                                 .activeColor(PrimaryColor)
                                 .inactiveColor(Color.LightGray)
@@ -109,7 +109,7 @@ fun ProfileCard(
                         )
                         Text(
                             fontWeight = FontWeight.Bold,
-                            text = rating.toString(),
+                            text = 5.toString(),
                             fontSize = 25.sp,
                              modifier = Modifier.padding(8.dp)
                         )

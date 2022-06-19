@@ -33,7 +33,7 @@ class ProfileViewModel @Inject constructor(
         getUserInfo()
     }
 
-    private val userUid get() = authUseCases.getUserUid()
+    val userUid get() = authUseCases.getUserUid()
 
     fun getProfileImageUrl(){
         viewModelScope.launch {

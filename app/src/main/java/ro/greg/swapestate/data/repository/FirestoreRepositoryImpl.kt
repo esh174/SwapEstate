@@ -12,11 +12,8 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import ro.greg.swapestate.core.Constants.RENTALS
 import ro.greg.swapestate.core.Constants.USERS
-import ro.greg.swapestate.domain.model.Chat
-import ro.greg.swapestate.domain.model.Message
-import ro.greg.swapestate.domain.model.Rental
+import ro.greg.swapestate.domain.model.*
 import ro.greg.swapestate.domain.model.Response.*
-import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.domain.repository.FirestoreRepository
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -216,7 +213,24 @@ class FirestoreRepositoryImpl @Inject constructor(
         }
 
         }
+    override suspend fun firestoreGetReviews(userId: String) = callbackFlow {
 
+        val snapshotListener =  usersRef.document(userId).collection("reviews")
+            .orderBy("id")
+            .addSnapshotListener{ snapshot, e ->
+                val response = if (snapshot != null) {
+                    val reviews = snapshot.toObjects(Review::class.java)
+                    Success(reviews)
+                } else {
+                    Error(e?.message ?: e.toString())
+                }
+                trySend(response).isSuccess
+            }
+        awaitClose {
+            snapshotListener.remove()
+        }
+
+    }
 
     }
 

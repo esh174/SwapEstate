@@ -70,6 +70,7 @@ class AppModule {
         getChat = GetChat(repository),
         getChatCard = GetChatCard(repository),
          getMessages = GetMessages(repository),
+         getReviews = GetReviews(repository),
         addMessage = AddMessage(repository),
     )
 

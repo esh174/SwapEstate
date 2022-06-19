@@ -26,4 +26,6 @@ interface FirestoreRepository {
     suspend fun firestoreAddMessage(message: Message, chatId: String): Flow<Response<Void?>>
 
     suspend fun firestoreGetMessages(chatId: String): Flow<Response<MutableList<Message>>>
+
+    suspend fun firestoreGetReviews(userId: String): Flow<Response<MutableList<Review>>>
 }

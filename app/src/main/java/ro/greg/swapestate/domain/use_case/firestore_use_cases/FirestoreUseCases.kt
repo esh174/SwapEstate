@@ -12,6 +12,7 @@ data class FirestoreUseCases(
     val getChat : GetChat,
     val getChatCard : GetChatCard,
     val getMessages : GetMessages,
+    val getReviews : GetReviews,
     val addMessage : AddMessage,
 
 )

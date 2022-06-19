@@ -14,6 +14,7 @@ import ro.greg.swapestate.presentation.chats_list.ChatsListScreen
 import ro.greg.swapestate.presentation.profile.ProfileScreen
 import ro.greg.swapestate.presentation.rental_add.RentalAddScreen
 import ro.greg.swapestate.presentation.renter_description.RenterDecriptionScreen
+import ro.greg.swapestate.presentation.reviews.ReviewsScreen
 import ro.greg.swapestate.presentation.search.SearchScreen
 import ro.greg.swapestate.presentation.sign_up.SignUpScreen
 import ro.greg.swapestate.presentation.user_details.UserDetailsScreen
@@ -70,6 +71,20 @@ fun NavGraph (
             route = Screen.ProfileScreen.route
         ) {
             ProfileScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.ReviewsScreen.route + "/{userId}"
+        ) {
+            ReviewsScreen(
+                navController = navController
+            )
+        }
+        composable(
+                Screen.ChatsListScreen.route
+                ) {
+            ChatsListScreen(
                 navController = navController
             )
         }
