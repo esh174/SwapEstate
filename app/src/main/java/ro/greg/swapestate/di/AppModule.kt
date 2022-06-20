@@ -66,6 +66,7 @@ class AppModule {
         getUserInfo =  GetUserInfo(repository),
         addRental =  AddRental(repository),
         getRentals = GetRentals(repository),
+        getRental = GetRental(repository),
         getChats = GetChats(repository),
         getChat = GetChat(repository),
         getChatCard = GetChatCard(repository),

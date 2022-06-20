@@ -376,6 +376,7 @@ fun BackdropComponent(
                         TextButton(
                             modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp),
                             onClick = {
+                                navController.navigate("${Constants.RESERVATION_SCREEN}/${rental.id}")
                             },
                         ) {
                             Text(

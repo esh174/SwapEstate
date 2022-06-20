@@ -15,6 +15,8 @@ interface FirestoreRepository {
 
     suspend fun firestoreGetRentals(): Flow<Response<MutableList<Rental>>>
 
+    suspend fun firestoreGetRental(rentalId: String): Flow<Response<Rental?>>
+
     suspend fun firestoreAddRental(rental: Rental): Flow<Response<Void?>>
 
     suspend fun firestoreGetChats(user: User): Flow<Response<List<Chat>>>

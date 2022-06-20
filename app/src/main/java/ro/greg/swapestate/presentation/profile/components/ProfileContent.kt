@@ -29,6 +29,7 @@ import ro.greg.shtistorm.presentation.theme.*
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.R
 import ro.greg.swapestate.core.Constants
+import ro.greg.swapestate.core.Constants.RESERVATION_LIST_SCREEN
 import ro.greg.swapestate.core.Constants.WELCOME_MESSAGE
 import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.presentation.components.ProgressBar
@@ -121,7 +122,7 @@ fun ProfileContent(
                     TextButton(
 
                         onClick = {
-                            /*TODO*/
+                            navController.navigate(RESERVATION_LIST_SCREEN)
                         },
                     ) {
                         Text(modifier = Modifier.padding(horizontal = 16.dp),

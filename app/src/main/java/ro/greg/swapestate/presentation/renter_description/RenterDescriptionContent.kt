@@ -27,7 +27,7 @@ import ro.greg.swapestate.presentation.user_details.UserDetailsViewModel
 fun RenterDescriptionContent(
     viewModel: RenterDescriptionViewModel = hiltViewModel()
 ) {
-    var name by rememberSaveable { mutableStateOf("WxnHZuxar7ixfDXwmsOM") }
+    var name by rememberSaveable { mutableStateOf("bSAgV7ndeqhUS5uZRyIUOdMy01h2") }
     var imageUri by rememberSaveable { mutableStateOf("") }
     val painter = rememberImagePainter(
         if (imageUri.isEmpty())

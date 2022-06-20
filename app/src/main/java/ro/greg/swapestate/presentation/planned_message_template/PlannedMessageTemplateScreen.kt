@@ -71,6 +71,7 @@ fun PlannedMessageTemplateScreen(
                 var text by remember { mutableStateOf("") }
                 var serviceText by remember { mutableStateOf("") }
                 var renovationText by remember { mutableStateOf("") }
+                var codeText by remember { mutableStateOf("") }
                 OutlinedTextField(
                     label = {Text("Messages")},
                     value = text,
@@ -147,8 +148,8 @@ fun PlannedMessageTemplateScreen(
                 OutlinedTextField(
                     enabled = codeSelected,
                     label = {Text("Keys/code")},
-                    value = renovationText,
-                    onValueChange = { renovationText = it},
+                    value = codeText,
+                    onValueChange = { codeText = it},
                     modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
 
 

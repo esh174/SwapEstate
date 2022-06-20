@@ -16,6 +16,8 @@ import ro.greg.swapestate.presentation.planned_messages.PlannedMesagesScreen
 import ro.greg.swapestate.presentation.profile.ProfileScreen
 import ro.greg.swapestate.presentation.rental_add.RentalAddScreen
 import ro.greg.swapestate.presentation.renter_description.RenterDecriptionScreen
+import ro.greg.swapestate.presentation.reservation.ReservationScreen
+import ro.greg.swapestate.presentation.reservation_list.ReservationListScreen
 import ro.greg.swapestate.presentation.reviews.ReviewsScreen
 import ro.greg.swapestate.presentation.search.SearchScreen
 import ro.greg.swapestate.presentation.sign_up.SignUpScreen
@@ -30,7 +32,7 @@ fun NavGraph (
     AnimatedNavHost(
         navController = navController,
        startDestination = Screen.AuthScreen.route,
-        //startDestination = Screen.RenterDecriptionScreen.route,
+       // startDestination = Screen.RenterDecriptionScreen.route,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None }
     ) {
@@ -122,6 +124,20 @@ fun NavGraph (
             Screen.ChatScreen.route + "/{chatId}"
         ) {
             ChatScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.ReservationScreen.route + "/{reservationId}"
+        ) {
+            ReservationScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.ReservationListScreen.route
+        ) {
+            ReservationListScreen(
                 navController = navController
             )
         }

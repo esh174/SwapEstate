@@ -72,6 +72,21 @@ class FirestoreRepositoryImpl @Inject constructor(
 
     }
 
+    override suspend fun firestoreGetRental(rentalId: String) = callbackFlow {
+        val snapshotListener = rentalsRef.document(rentalId).addSnapshotListener{ snapshot, e ->
+            val response = if (snapshot != null) {
+                val rentals = snapshot.toObject(Rental::class.java)
+                Success(rentals)
+            } else {
+                Error(e?.message ?: e.toString())
+            }
+            trySend(response).isSuccess
+        }
+        awaitClose {
+            snapshotListener.remove()
+        }
+
+    }
 
 
 
