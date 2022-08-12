@@ -4,11 +4,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.Response.*
 import ro.greg.swapestate.domain.repository.AuthRepository
 import javax.inject.Inject

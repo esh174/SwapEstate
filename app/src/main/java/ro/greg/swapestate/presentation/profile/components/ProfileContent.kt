@@ -22,12 +22,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.shtistorm.presentation.theme.*
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.R
 import ro.greg.swapestate.core.Constants
+import ro.greg.swapestate.core.Constants.RESERVATION_LIST_SCREEN
 import ro.greg.swapestate.core.Constants.WELCOME_MESSAGE
 import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.presentation.components.ProgressBar
@@ -36,10 +38,11 @@ import ro.greg.swapestate.presentation.profile.ProfileViewModel
 @OptIn(InternalCoroutinesApi::class)
 @Composable
 fun ProfileContent(
-    viewModel: ProfileViewModel = hiltViewModel()
+    navController: NavController,
+    viewModel: ProfileViewModel
 ) {
     val userInfoState = viewModel.userInfoState
-
+    val userId = viewModel.userUid
     Column(modifier = Modifier.fillMaxSize()){
         Divider(color = Color.LightGray, thickness = 1.dp)
         Column(
@@ -119,7 +122,7 @@ fun ProfileContent(
                     TextButton(
 
                         onClick = {
-                            /*TODO*/
+                            navController.navigate(RESERVATION_LIST_SCREEN)
                         },
                     ) {
                         Text(modifier = Modifier.padding(horizontal = 16.dp),
@@ -165,7 +168,7 @@ fun ProfileContent(
                         )
                         Text(
                             modifier = Modifier.padding(16.dp),
-                            text = "10 received reviews",
+                            text = "1 received review",
                             fontSize = 20.sp
                         )
                     }
@@ -173,7 +176,7 @@ fun ProfileContent(
                     TextButton(
 
                         onClick = {
-                            /*TODO*/
+                            navController.navigate("${Constants.REVIEWS_SCREEN}/${userId}")
                         },
                     ) {
                         Text(modifier = Modifier.padding(horizontal = 16.dp),

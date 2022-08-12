@@ -1,20 +1,21 @@
 package ro.greg.swapestate.data.repository
 
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import ro.greg.swapestate.core.Constants.RENTALS
 import ro.greg.swapestate.core.Constants.USERS
-import ro.greg.swapestate.domain.model.Rental
+import ro.greg.swapestate.domain.model.*
 import ro.greg.swapestate.domain.model.Response.*
-import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.domain.repository.FirestoreRepository
 import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -27,6 +28,7 @@ class FirestoreRepositoryImpl @Inject constructor(
 
     private val usersRef = dbInstance.collection(USERS)
     private val rentalsRef = dbInstance.collection(RENTALS)
+    private val chatsRef = dbInstance.collection("chats")
 
     override suspend fun firestoreAddUser(id: String, email: String) = flow {
         try {
@@ -53,6 +55,41 @@ class FirestoreRepositoryImpl @Inject constructor(
             emit(Error(e.message ?: e.toString()))
         }
     }
+
+    override suspend fun firestoreGetRentals() = callbackFlow {
+        val snapshotListener = rentalsRef.orderBy("id").addSnapshotListener{ snapshot, e ->
+            val response = if (snapshot != null) {
+                val rentals = snapshot.toObjects(Rental::class.java)
+                Success(rentals)
+            } else {
+                Error(e?.message ?: e.toString())
+            }
+            trySend(response).isSuccess
+        }
+        awaitClose {
+            snapshotListener.remove()
+        }
+
+    }
+
+    override suspend fun firestoreGetRental(rentalId: String) = callbackFlow {
+        val snapshotListener = rentalsRef.document(rentalId).addSnapshotListener{ snapshot, e ->
+            val response = if (snapshot != null) {
+                val rentals = snapshot.toObject(Rental::class.java)
+                Success(rentals)
+            } else {
+                Error(e?.message ?: e.toString())
+            }
+            trySend(response).isSuccess
+        }
+        awaitClose {
+            snapshotListener.remove()
+        }
+
+    }
+
+
+
 
     override suspend fun firestoreAddInfo(id:String, name: String, phone : String, userType: String) = flow {
         try {
@@ -82,8 +119,146 @@ class FirestoreRepositoryImpl @Inject constructor(
           awaitClose {
               snapshotListener.remove()
           }
+        }
+
+    override suspend fun firestoreGetChats(user: User) = callbackFlow {
+                val snapshotListener = user.chatsList?.let {
+                    chatsRef.whereIn("id" , it)
+                        .addSnapshotListener{ snapshot, e ->
+                            val response = if (snapshot != null) {
+                                val chats = snapshot.toObjects(Chat::class.java)
+                                Success(chats)
+                            } else {
+                                Error(e?.message ?: e.toString())
+                            }
+                            trySend(response).isSuccess
+                        }
+                }
+                awaitClose {
+                    snapshotListener?.remove()
+                }
 
         }
 
-}
+
+
+
+    override suspend fun firestoreGetChat(chatId: String) = callbackFlow {
+        val snapshotListener = chatsRef.document(chatId).addSnapshotListener{ snapshot, e ->
+                val response = if (snapshot != null) {
+                    val chat = snapshot.toObject(Chat::class.java)
+                    Success(chat)
+                } else {
+                    Error(e?.message ?: e.toString())
+                }
+                trySend(response).isSuccess
+            }
+        awaitClose {
+            snapshotListener?.remove()
+        }
+    }
+
+
+
+    override suspend fun firestoreGetChatCard(ownerId: String, rentalId: String) = flow {
+        try {
+            emit(Loading)
+
+            val chatDesc =  coroutineScope {
+                val user = runBlocking {
+                    FirebaseFirestore.getInstance().collection("users")
+                        .document(ownerId).get().await().toObject(User::class.java)
+                }
+                val rental = runBlocking {
+                    FirebaseFirestore.getInstance().collection("rentals")
+                        .document(rentalId).get().await().toObject(Rental::class.java)
+                }
+
+                val chatDesc = async {hashMapOf(
+                    "username" to user!!.name,
+                    "rentalName" to rental!!.roomNumber!!.toString()
+                            + "-bedroom "
+                            + rental.rentalType
+                            + ", "
+                            + rental.location
+                )}
+                chatDesc.await()
+            }
+
+
+            emit(Success(chatDesc))
+        }  catch (e: Exception) {
+            emit(Error(e.message ?: e.toString()))
+        }
+    }
+
+
+    override suspend fun firestoreAddMessage(message: Message, chatId: String) = flow {
+        try {
+            emit(Loading)
+            val messageId = chatsRef.document(chatId)
+                .collection("messages").get().await().documents.size
+            val firebaseId = chatsRef.document(chatId)
+                .collection("messages").document().id
+            message.id = messageId
+            val addition = chatsRef.document(chatId)
+                .collection("messages").document(firebaseId).set(message).await()
+            emit(Success(addition))
+        } catch (e: Exception) {
+            emit(Error(e.message ?: e.toString()))
+        }
+    }
+
+
+    override suspend fun firestoreGetMessages(chatId: String) = callbackFlow {
+
+        val snapshotListener =  chatsRef.document(chatId).collection("messages")
+            .orderBy("id")
+            .addSnapshotListener{ snapshot, e ->
+                val response = if (snapshot != null) {
+                    val messages = snapshot.toObjects(Message::class.java)
+                    Success(messages)
+                } else {
+                    Error(e?.message ?: e.toString())
+                }
+                trySend(response).isSuccess
+            }
+        awaitClose {
+            snapshotListener.remove()
+        }
+
+        }
+    override suspend fun firestoreGetReviews(userId: String) = callbackFlow {
+
+        val snapshotListener =  usersRef.document(userId).collection("reviews")
+            .orderBy("id")
+            .addSnapshotListener{ snapshot, e ->
+                val response = if (snapshot != null) {
+                    val reviews = snapshot.toObjects(Review::class.java)
+                    Success(reviews)
+                } else {
+                    Error(e?.message ?: e.toString())
+                }
+                trySend(response).isSuccess
+            }
+        awaitClose {
+            snapshotListener.remove()
+        }
+
+    }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 

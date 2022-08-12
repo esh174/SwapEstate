@@ -5,6 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         viewModel.getAuthState()
         setContent {
             SwapEstateTheme{
@@ -29,11 +31,11 @@ class MainActivity : AppCompatActivity() {
                 NavGraph(
                     navController = navController
                 )
-//                if(viewModel.isUserAuthenticated) {
-//                    navController.popBackStack()
-//                    navController.navigate(ProfileScreen.route)
-//
-//                }
+                if(viewModel.isUserAuthenticated) {
+                    navController.popBackStack()
+                    navController.navigate(ProfileScreen.route)
+
+                }
             }
 
         }

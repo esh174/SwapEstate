@@ -9,10 +9,16 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.presentation.auth.AuthScreen
-import ro.greg.swapestate.presentation.chats.ChatsScreen
+import ro.greg.swapestate.presentation.chat.ChatScreen
+import ro.greg.swapestate.presentation.chats_list.ChatsListScreen
+import ro.greg.swapestate.presentation.planned_message_template.PlannedMessageTemplateScreen
+import ro.greg.swapestate.presentation.planned_messages.PlannedMesagesScreen
 import ro.greg.swapestate.presentation.profile.ProfileScreen
 import ro.greg.swapestate.presentation.rental_add.RentalAddScreen
 import ro.greg.swapestate.presentation.renter_description.RenterDecriptionScreen
+import ro.greg.swapestate.presentation.reservation.ReservationScreen
+import ro.greg.swapestate.presentation.reservation_list.ReservationListScreen
+import ro.greg.swapestate.presentation.reviews.ReviewsScreen
 import ro.greg.swapestate.presentation.search.SearchScreen
 import ro.greg.swapestate.presentation.sign_up.SignUpScreen
 import ro.greg.swapestate.presentation.user_details.UserDetailsScreen
@@ -25,8 +31,8 @@ fun NavGraph (
 ) {
     AnimatedNavHost(
         navController = navController,
-        //startDestination = Screen.AuthScreen.route,
-        startDestination = Screen.RentalAddScreen.route,
+       startDestination = Screen.AuthScreen.route,
+       // startDestination = Screen.RenterDecriptionScreen.route,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None }
     ) {
@@ -73,6 +79,20 @@ fun NavGraph (
             )
         }
         composable(
+            Screen.ReviewsScreen.route + "/{userId}"
+        ) {
+            ReviewsScreen(
+                navController = navController
+            )
+        }
+        composable(
+                Screen.ChatsListScreen.route
+                ) {
+            ChatsListScreen(
+                navController = navController
+            )
+        }
+        composable(
             Screen.SearchScreen.route
         ) {
             SearchScreen(
@@ -80,9 +100,44 @@ fun NavGraph (
             )
         }
         composable(
-            Screen.ChatsScreen.route
+            Screen.ChatsListScreen.route
         ) {
-            ChatsScreen(
+            ChatsListScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.PlannedMessagesScreen.route
+        ) {
+            PlannedMesagesScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.PlannedMessageTemplateScreen.route
+        ) {
+            PlannedMessageTemplateScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.ChatScreen.route + "/{chatId}"
+        ) {
+            ChatScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.ReservationScreen.route + "/{reservationId}"
+        ) {
+            ReservationScreen(
+                navController = navController
+            )
+        }
+        composable(
+            Screen.ReservationListScreen.route
+        ) {
+            ReservationListScreen(
                 navController = navController
             )
         }

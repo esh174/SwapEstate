@@ -1,13 +1,11 @@
 package ro.greg.swapestate.presentation.user_details
 
 import android.net.Uri
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.CloudStorageUseCases
