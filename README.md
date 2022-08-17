@@ -36,7 +36,7 @@
 ### Рейтинг
 Он везде :)
  <p align="center">
-<img width=300 src="https://user-images.githubusercontent.com/69598531/185198656-a3f7d966-e0a2-49d5-8c63-1ec202707d98.png">
-<img width=300 src="https://user-images.githubusercontent.com/69598531/185198802-0c9052e3-7e31-4779-8737-d4fe078bb8e1.png">
-<img width=300 src="https://user-images.githubusercontent.com/69598531/185199160-cf999e06-eb59-4c57-b2e1-7a8456d91979.png">
+<img width=280 src="https://user-images.githubusercontent.com/69598531/185198656-a3f7d966-e0a2-49d5-8c63-1ec202707d98.png">
+<img width=280 src="https://user-images.githubusercontent.com/69598531/185198802-0c9052e3-7e31-4779-8737-d4fe078bb8e1.png">
+<img width=280 src="https://user-images.githubusercontent.com/69598531/185199160-cf999e06-eb59-4c57-b2e1-7a8456d91979.png">
 </p>
