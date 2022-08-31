@@ -44,9 +44,3 @@
     
 <img width=300 src="https://user-images.githubusercontent.com/69598531/185199692-4ba6331d-53aa-4f1c-b51e-3f7cea61f114.png">
 </p>
-
-### Мои контакты
-
-**Telegram:** https://t.me/esh7946
-
-**Email:** g.o.sharafutdinov@gmail.com
