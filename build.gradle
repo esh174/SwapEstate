@@ -19,7 +19,7 @@ buildscript {
     }
     repositories {
         google()
-        maven { url 'https://jitpack.io' }
+        maven { url 'https://mvnrepository.com/artifact/com.github.gundy/semver4j'}
         mavenCentral()
     }
     dependencies {
@@ -27,9 +27,13 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.gms:google-services:$google_services_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+        classpath "com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0"
     }
 }
-
+plugins{
+    id("io.gitlab.arturbosch.detekt").version("1.20.0-RC1").apply(false)
+}
+apply plugin: "com.vanniktech.android.junit.jacoco"
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

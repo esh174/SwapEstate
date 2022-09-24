@@ -39,4 +39,22 @@ jobs:
           name: artifacts.zip
           path: |
             app/build/outputs/apk/debug/app-debug.apk
-            dog_network/build/outputs/aar
+            swap_estate/build/outputs/aar
+
+      - name: CodeAnalysis via  detekt
+        run: ./gradlew detekt
+
+      - name: Upload detekt results
+        uses: actions/upload-artifact@v2
+        with:
+          name: detekt_results
+          path:app/build/reports/detekt
+
+      - name: CodeAnalysis via  checkstyle
+        run: ./gradlew checkstyle
+
+      - name: Upload checkstyle results
+        uses: actions/upload-artifact@v2
+        with:
+          name: checkstyle_results
+          path: app/build/reports/checkstyle
