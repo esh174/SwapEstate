@@ -32,15 +32,6 @@ jobs:
         if: always()
         run: ./gradlew assembleDebug
 
-      - name: Upload AAR files
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: artifacts.zip
-          path: |
-            app/build/outputs/apk/debug/app-debug.apk
-            swap_estate/build/outputs/aar
-
       - name: CodeAnalysis via  detekt
         run: ./gradlew detekt
 
@@ -58,3 +49,13 @@ jobs:
         with:
           name: checkstyle_results
           path: app/build/reports/checkstyle
+
+      - name: Upload AAR files
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifacts.zip
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            swap_estate/build/outputs/aar
+            
