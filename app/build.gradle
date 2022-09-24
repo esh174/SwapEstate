@@ -4,10 +4,10 @@ plugins {
     id "kotlin-kapt"
     id "com.google.gms.google-services"
     id "dagger.hilt.android.plugin"
+    id "io.gitlab.arturbosch.detekt"
+    id "checkstyle"
 }
 
-apply plugin: "io.gitlab.arturbosch.detekt"               // detekt STEP1 applying plugin (detekt = kotlin code's static analyser)
-apply plugin: "checkstyle"                                // checkstyle STEP1 applying plugin (checkstyle = java code's static analyser)
 
 // detekt STEP2 plugin configuration
 detekt {
