@@ -1,7 +1,7 @@
 name: task - validate commit on master
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
 
 jobs:
   basic_job:
@@ -21,9 +21,6 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Check lint
-        if: always()
-        run: ./gradlew lint
       - name: Run Unit Tests
         if: always()
         run: ./gradlew testDebugUnitTest
