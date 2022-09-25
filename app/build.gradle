@@ -97,4 +97,6 @@ dependencies {
 apply plugin: "io.gitlab.arturbosch.detekt"
 detekt {
     basePath = projectDir
+    config = files("detekt.yml")
+    parallel = true
 }
