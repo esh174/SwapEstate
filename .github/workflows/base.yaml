@@ -47,6 +47,7 @@ jobs:
         uses: natiginfo/action-detekt-all@1.17.0
 
       - name: Upload detekt results
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: detekt_results
