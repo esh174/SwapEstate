@@ -95,7 +95,12 @@ dependencies {
 
 }
 apply plugin: "io.gitlab.arturbosch.detekt"
-
+detekt {
+    config = rootProject.files("config/detekt/detekt.yml")
+    buildUponDefaultConfig = false
+    baseline = rootProject.file("config/detekt/detekt-baseline.xml")
+    basePath = projectDir
+}
 tasks.named("detekt").configure {
     reports {
         // Enable/Disable XML report (default: true)
