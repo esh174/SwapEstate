@@ -1,33 +1,7 @@
-  Skip to content
-    Search or jump to…
-    Pull requests
-    Issues
-    Marketplace
-    Explore
-    
-    @esh174
-    root-ansh
-    /
-    DogFinder
-    Public
-    Code
-    Issues
-    Pull requests
-    Actions
-    Projects
-    Security
-    Insights
-    DogFinder/config/detekt/detekt.yml
-    @root-ansh
-    root-ansh supporting static code analysis plugin detekt via gradle
-    Latest commit 5d441f9 on Mar 5
-    History
-    1 contributor
-    678 lines (664 sloc)  16.8 KB
 
   build:
     # total number of issues allowed exceeding which the gradle action will fail
-    maxIssues: 500
+    maxIssues: 400
 
     excludeCorrectable: false
     weights:
