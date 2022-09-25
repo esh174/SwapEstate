@@ -1,10 +1,10 @@
-name: task - validate commit on master
+name: task - validate commit on main
 on:
   push:
     branches: [ main ]
 
 jobs:
-  basic_job:
+  assemble:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -39,13 +39,18 @@ jobs:
             swap_estate/build/outputs/aar
 
   detekt:
-    ## 4
     runs-on: ubuntu-latest
     steps:
       - name: "checkout"
         uses: actions/checkout@v2
       - name: "detekt"
         uses: natiginfo/action-detekt-all@1.17.0
+
+      - name: Upload detekt results
+        uses: actions/upload-artifact@v2
+        with:
+          name: detekt_results
+          path:app/build/reports/detekt
 
 
 
