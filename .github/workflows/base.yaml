@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: detekt_results
-          path:app/build/reports/detekt
+            app/build/reports/detekt
 
 
 
