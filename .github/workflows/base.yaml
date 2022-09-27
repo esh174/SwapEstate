@@ -37,9 +37,12 @@ jobs:
           path: |
             app/build/outputs/apk/debug/app-debug.apk
             swap_estate/build/outputs/aar
+#
+#
+#
 
 
-  ui_tests:
+  test:
     runs-on: macos-latest
     needs: assemble
     strategy:
@@ -92,21 +95,7 @@ jobs:
             name: UI_Tests_result
             path: app/build/outputs/androidTest-results
 
-  detekt:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: "checkout"
-        uses: actions/checkout@v2
-      - name: "detekt"
-        run: ./gradlew detekt
 
-      - name: Upload detekt results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: detekt_results
-          path: app/build/reports/detekt
 
 
             
