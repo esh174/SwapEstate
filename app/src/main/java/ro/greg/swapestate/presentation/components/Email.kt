@@ -54,5 +54,8 @@ fun Email(
         )
     )
 
-    emailState.getError()?.let { error -> TextFieldError(textError = error) }
+    emailState.getError()?.let { error -> TextFieldError(
+
+        textError = error
+    ) }
 }

@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -29,6 +30,7 @@ import ro.greg.shtistorm.presentation.theme.SwapEstateTheme
 import ro.greg.swapestate.core.TestTags
 import ro.greg.swapestate.presentation.navigation.NavGraph
 import ro.greg.swapestate.presentation.navigation.Screen
+import ro.greg.swapestate.presentation.sign_up.SignUpScreen
 
 @OptIn(InternalCoroutinesApi::class)
 @HiltAndroidTest
@@ -61,6 +63,13 @@ class AuthScreenTest {
                             navController = navController
                         )
                     }
+                    composable(
+                        route = Screen.SignUpScreen.route
+                    ) {
+                        SignUpScreen(
+                            navController = navController
+                        )
+                    }
                 }
             }
         }
@@ -68,6 +77,14 @@ class AuthScreenTest {
     @Test
     fun clickEmailEmptyBoxError_isVisible() {
         composeRule.onNodeWithTag(TestTags.EMAIL_TAG).performClick()
-        composeRule.onNodeWithTag(TestTags.EMAIL_TAG).assertIsFocused()
+        composeRule.onNodeWithTag(TestTags.PASSWORD_TAG).performClick()
+        composeRule.onNodeWithTag(TestTags.INPUT_FIELD_ERROR).assertIsDisplayed()
+    }
+
+    @Test
+    fun clickPasswordEmptyBoxError_isVisible() {
+        composeRule.onNodeWithTag(TestTags.PASSWORD_TAG).performClick()
+        composeRule.onNodeWithTag(TestTags.EMAIL_TAG).performClick()
+        composeRule.onNodeWithTag(TestTags.INPUT_FIELD_ERROR).assertIsDisplayed()
     }
 }

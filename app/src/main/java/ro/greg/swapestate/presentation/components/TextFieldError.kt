@@ -9,7 +9,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import ro.greg.swapestate.core.TestTags
 
 @Composable
 fun TextFieldError(textError: String) {
@@ -17,7 +19,7 @@ fun TextFieldError(textError: String) {
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = textError,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().testTag(TestTags.INPUT_FIELD_ERROR),
             style = LocalTextStyle.current.copy(color = MaterialTheme.colors.error)
         )
     }
