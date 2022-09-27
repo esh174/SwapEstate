@@ -9,8 +9,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import ro.greg.swapestate.core.Constants
+import ro.greg.swapestate.core.TestTags
 import ro.greg.swapestate.presentation.components.TextFieldError
 
 
@@ -34,6 +36,7 @@ fun Email(
             }
         },
         modifier = Modifier
+            .testTag(TestTags.EMAIL_TAG)
             .fillMaxWidth()
             .onFocusChanged { focusState ->
                 emailState.onFocusChange(focusState.isFocused)

@@ -13,10 +13,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import ro.greg.swapestate.core.Constants
+import ro.greg.swapestate.core.TestTags
 import ro.greg.swapestate.presentation.components.TextFieldError
 
 
@@ -37,6 +39,7 @@ fun Password(
         },
         modifier = modifier
             .fillMaxWidth()
+            .testTag(TestTags.PASSWORD_TAG)
             .onFocusChanged { focusState ->
                 passwordState.onFocusChange(focusState.isFocused)
                 if (!focusState.isFocused) {
