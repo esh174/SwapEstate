@@ -37,10 +37,6 @@ jobs:
           path: |
             app/build/outputs/apk/debug/app-debug.apk
             swap_estate/build/outputs/aar
-#
-#
-#
-
 
   test:
     runs-on: macos-latest
@@ -88,12 +84,7 @@ jobs:
           disable-animations: true
           script: ./gradlew connectedCheck
 
-        - name: Upload UI results
-          if: always()
-          uses: actions/upload-artifact@v2
-          with:
-            name: UI_Tests_result
-            path: app/build/outputs/androidTest-results
+
 
 
 
