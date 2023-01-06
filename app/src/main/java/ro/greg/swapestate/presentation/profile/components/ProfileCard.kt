@@ -37,22 +37,20 @@ fun ProfileCard(
     user: User,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
-
-
-
     val profileImageUrlState = viewModel.getProfileImageUrlState
-    Row(verticalAlignment = Alignment.CenterVertically,
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-        .fillMaxWidth()
-        .padding(horizontal = 15.dp, vertical = 20.dp)){
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp, vertical = 20.dp)
+    ) {
         Card(
             shape = CircleShape,
             modifier = Modifier
                 .padding(15.dp)
                 .size(130.dp),
             elevation = 0.dp,
-
-            ) {
+        ) {
             when (val response = profileImageUrlState.value) {
                 is Response.Loading -> {
                     ProgressBar()
@@ -71,16 +69,15 @@ fun ProfileCard(
                     )
                 }
             }
-
-
-
         }
         Card(
             modifier = Modifier
                 .fillMaxWidth(),
             elevation = 0.dp,
-        ){
-            Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp)){
+        ) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp)) {
                 user.name?.let { name ->
                     Text(
                         fontWeight = FontWeight.Bold,
@@ -92,15 +89,15 @@ fun ProfileCard(
                 user.rating.let { rating ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically
-                    ){
+                    ) {
                         RatingBar(
                             value = rating.toFloat(),
-                            config =  RatingBarConfig()
+                            config = RatingBarConfig()
                                 .activeColor(PrimaryColor)
                                 .inactiveColor(Color.LightGray)
                                 .stepSize(StepSize.HALF)
                                 .isIndicator(true)
-                                .size(20.dp)
+                                .size(18.dp)
                                 .style(RatingBarStyle.HighLighted),
                             onValueChange = {
                             },
@@ -110,21 +107,20 @@ fun ProfileCard(
                         Text(
                             fontWeight = FontWeight.Bold,
                             text = rating.toString(),
-                            fontSize = 25.sp,
-                             modifier = Modifier.padding(8.dp)
+                            fontSize = 18.sp,
+                            modifier = Modifier.padding(8.dp)
                         )
                     }
 
                 }
                 user.reviewsNumber.let { rating ->
-                    val reviewsString = if(rating%10 == 1) "review" else "reviews"
+                    val reviewsString = if (rating % 10 == 1) "review" else "reviews"
                     Text(
 
                         text = "$rating $reviewsString",
                         fontSize = 18.sp
                     )
                 }
-
             }
         }
     }

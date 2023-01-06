@@ -30,7 +30,7 @@ import ro.greg.shtistorm.presentation.theme.SwapEstateTheme
 import ro.greg.swapestate.core.TestTags
 import ro.greg.swapestate.presentation.navigation.NavGraph
 import ro.greg.swapestate.presentation.navigation.Screen
-import ro.greg.swapestate.presentation.sign_up.SignUpScreen
+import ro.greg.swapestate.presentation.auth.sign_up.SignUpScreen
 
 @OptIn(InternalCoroutinesApi::class)
 @HiltAndroidTest

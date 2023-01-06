@@ -1,4 +1,4 @@
-package ro.greg.swapestate.presentation.chats_list
+package ro.greg.swapestate.presentation.chats.chats_list
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,10 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.InternalCoroutinesApi
-import okhttp3.internal.wait
 import ro.greg.swapestate.domain.model.Response
-import ro.greg.swapestate.presentation.chats_list.chats_components.ChatCard
-import ro.greg.swapestate.presentation.chats_list.chats_components.ChatListTopBar
+import ro.greg.swapestate.presentation.chats.chats_list.chats_components.ChatCard
+import ro.greg.swapestate.presentation.chats.chats_list.chats_components.ChatListTopBar
 import ro.greg.swapestate.presentation.components.BottomNavigationBar
 import ro.greg.swapestate.presentation.components.ProgressBar
 
@@ -34,22 +33,19 @@ fun ChatsListScreen(
         bottomBar = {
             BottomNavigationBar(navController = navController)
         },
-
-        ) {
+    ) {
         it.calculateTopPadding()
         Divider(color = Color.LightGray, thickness = 1.dp)
-        when(val chatsResponse = viewModel.chatsState.value) {
+        when (val chatsResponse = viewModel.chatsState.value) {
             is Response.Loading -> ProgressBar()
             is Response.Success -> Box(
                 modifier = Modifier.fillMaxSize()
             ) {
-
                 LazyColumn {
                     items(
                         items = chatsResponse.data
                     ) { chat ->
-
-                        ChatCard(chat = chat,navController = navController)
+                        ChatCard(chat = chat, navController = navController)
                     }
                 }
                 Box(
@@ -60,11 +56,6 @@ fun ChatsListScreen(
                 }
             }
         }
-
-
-
-
-
     }
 }
 

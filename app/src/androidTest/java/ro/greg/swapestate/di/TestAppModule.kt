@@ -94,9 +94,5 @@ class TestAppModule {
         getSeveralImages = GetSeveralImages(repository)
     )
 
-
-
-
-
 }
 

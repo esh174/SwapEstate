@@ -19,12 +19,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
-
 @Singleton
 @ExperimentalCoroutinesApi
 class FirestoreRepositoryImpl @Inject constructor(
     private val dbInstance: FirebaseFirestore,
-): FirestoreRepository {
+) : FirestoreRepository {
 
     private val usersRef = dbInstance.collection(USERS)
     private val rentalsRef = dbInstance.collection(RENTALS)
@@ -57,7 +56,7 @@ class FirestoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun firestoreGetRentals() = callbackFlow {
-        val snapshotListener = rentalsRef.orderBy("id").addSnapshotListener{ snapshot, e ->
+        val snapshotListener = rentalsRef.orderBy("id").addSnapshotListener { snapshot, e ->
             val response = if (snapshot != null) {
                 val rentals = snapshot.toObjects(Rental::class.java)
                 Success(rentals)
@@ -73,7 +72,7 @@ class FirestoreRepositoryImpl @Inject constructor(
     }
 
     override suspend fun firestoreGetRental(rentalId: String) = callbackFlow {
-        val snapshotListener = rentalsRef.document(rentalId).addSnapshotListener{ snapshot, e ->
+        val snapshotListener = rentalsRef.document(rentalId).addSnapshotListener { snapshot, e ->
             val response = if (snapshot != null) {
                 val rentals = snapshot.toObject(Rental::class.java)
                 Success(rentals)
@@ -88,83 +87,79 @@ class FirestoreRepositoryImpl @Inject constructor(
 
     }
 
-
-
-
-    override suspend fun firestoreAddInfo(id:String, name: String, phone : String, userType: String) = flow {
+    override suspend fun firestoreAddInfo(
+        id: String,
+        name: String,
+        phone: String,
+        userType: String
+    ) = flow {
         try {
             emit(Loading)
-            val detailsAddition = usersRef.document(id).update(mapOf(
-                "name" to name,
-                "phone" to phone,
-                "userType" to userType
-            )).await()
+            val detailsAddition = usersRef.document(id).update(
+                mapOf(
+                    "name" to name,
+                    "phone" to phone,
+                    "userType" to userType
+                )
+            ).await()
             emit(Success(detailsAddition))
         } catch (e: Exception) {
             emit(Error(e.message ?: e.toString()))
         }
     }
 
-
-    override  fun firestoreGetUserInfo(id:String) = callbackFlow {
-          val snapshotListener = usersRef.document(id).addSnapshotListener{ snapshot, e ->
-                val response = if (snapshot != null) {
-                    val user = snapshot.toObject(User::class.java)
-                    Success(user)
-                } else {
-                    Error(e?.message ?: e.toString())
-                }
-                trySend(response).isSuccess
+    override fun firestoreGetUserInfo(id: String) = callbackFlow {
+        val snapshotListener = usersRef.document(id).addSnapshotListener { snapshot, e ->
+            val response = if (snapshot != null) {
+                val user = snapshot.toObject(User::class.java)
+                Success(user)
+            } else {
+                Error(e?.message ?: e.toString())
             }
-          awaitClose {
-              snapshotListener.remove()
-          }
+            trySend(response).isSuccess
         }
+        awaitClose {
+            snapshotListener.remove()
+        }
+    }
 
     override suspend fun firestoreGetChats(user: User) = callbackFlow {
-                val snapshotListener = user.chatsList?.let {
-                    chatsRef.whereIn("id" , it)
-                        .addSnapshotListener{ snapshot, e ->
-                            val response = if (snapshot != null) {
-                                val chats = snapshot.toObjects(Chat::class.java)
-                                Success(chats)
-                            } else {
-                                Error(e?.message ?: e.toString())
-                            }
-                            trySend(response).isSuccess
-                        }
+        val snapshotListener = user.chatsList?.let {
+            chatsRef.whereIn("id", it)
+                .addSnapshotListener { snapshot, e ->
+                    val response = if (snapshot != null) {
+                        val chats = snapshot.toObjects(Chat::class.java)
+                        Success(chats)
+                    } else {
+                        Error(e?.message ?: e.toString())
+                    }
+                    trySend(response).isSuccess
                 }
-                awaitClose {
-                    snapshotListener?.remove()
-                }
-
         }
-
-
-
-
-    override suspend fun firestoreGetChat(chatId: String) = callbackFlow {
-        val snapshotListener = chatsRef.document(chatId).addSnapshotListener{ snapshot, e ->
-                val response = if (snapshot != null) {
-                    val chat = snapshot.toObject(Chat::class.java)
-                    Success(chat)
-                } else {
-                    Error(e?.message ?: e.toString())
-                }
-                trySend(response).isSuccess
-            }
         awaitClose {
             snapshotListener?.remove()
         }
     }
 
-
+    override suspend fun firestoreGetChat(chatId: String) = callbackFlow {
+        val snapshotListener = chatsRef.document(chatId).addSnapshotListener { snapshot, e ->
+            val response = if (snapshot != null) {
+                val chat = snapshot.toObject(Chat::class.java)
+                Success(chat)
+            } else {
+                Error(e?.message ?: e.toString())
+            }
+            trySend(response).isSuccess
+        }
+        awaitClose {
+            snapshotListener?.remove()
+        }
+    }
 
     override suspend fun firestoreGetChatCard(ownerId: String, rentalId: String) = flow {
         try {
             emit(Loading)
-
-            val chatDesc =  coroutineScope {
+            val chatDesc = coroutineScope {
                 val user = runBlocking {
                     FirebaseFirestore.getInstance().collection("users")
                         .document(ownerId).get().await().toObject(User::class.java)
@@ -173,25 +168,23 @@ class FirestoreRepositoryImpl @Inject constructor(
                     FirebaseFirestore.getInstance().collection("rentals")
                         .document(rentalId).get().await().toObject(Rental::class.java)
                 }
-
-                val chatDesc = async {hashMapOf(
-                    "username" to user!!.name,
-                    "rentalName" to rental!!.roomNumber!!.toString()
-                            + "-bedroom "
-                            + rental.rentalType
-                            + ", "
-                            + rental.location
-                )}
+                val chatDesc = async {
+                    hashMapOf(
+                        "username" to user!!.name,
+                        "rentalName" to rental!!.roomNumber!!.toString()
+                                + "-bedroom "
+                                + rental.rentalType
+                                + ", "
+                                + rental.location
+                    )
+                }
                 chatDesc.await()
             }
-
-
             emit(Success(chatDesc))
-        }  catch (e: Exception) {
+        } catch (e: Exception) {
             emit(Error(e.message ?: e.toString()))
         }
     }
-
 
     override suspend fun firestoreAddMessage(message: Message, chatId: String) = flow {
         try {
@@ -209,12 +202,10 @@ class FirestoreRepositoryImpl @Inject constructor(
         }
     }
 
-
     override suspend fun firestoreGetMessages(chatId: String) = callbackFlow {
-
-        val snapshotListener =  chatsRef.document(chatId).collection("messages")
+        val snapshotListener = chatsRef.document(chatId).collection("messages")
             .orderBy("id")
-            .addSnapshotListener{ snapshot, e ->
+            .addSnapshotListener { snapshot, e ->
                 val response = if (snapshot != null) {
                     val messages = snapshot.toObjects(Message::class.java)
                     Success(messages)
@@ -226,13 +217,12 @@ class FirestoreRepositoryImpl @Inject constructor(
         awaitClose {
             snapshotListener.remove()
         }
+    }
 
-        }
     override suspend fun firestoreGetReviews(userId: String) = callbackFlow {
-
-        val snapshotListener =  usersRef.document(userId).collection("reviews")
+        val snapshotListener = usersRef.document(userId).collection("reviews")
             .orderBy("id")
-            .addSnapshotListener{ snapshot, e ->
+            .addSnapshotListener { snapshot, e ->
                 val response = if (snapshot != null) {
                     val reviews = snapshot.toObjects(Review::class.java)
                     Success(reviews)
@@ -244,10 +234,8 @@ class FirestoreRepositoryImpl @Inject constructor(
         awaitClose {
             snapshotListener.remove()
         }
-
     }
-
-    }
+}
 
 
 

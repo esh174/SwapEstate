@@ -10,7 +10,7 @@ data class Rental (
     var rentalType : String? = null,
     var roomNumber : Int? = null,
     var floorsNumber : Int? = null,
-    var buildYear: Int? = 0,
+    var buildYear: String? = "",
     var isAnimalsAllowed: Boolean? = false,
     var isKidsAllowed: Boolean? = false,
     var rentPrice: Int? = 0,

@@ -21,12 +21,10 @@ import ro.greg.shtistorm.presentation.auth.components.EmailState
 import ro.greg.shtistorm.presentation.auth.components.Password
 import ro.greg.shtistorm.presentation.components.PasswordState
 import ro.greg.shtistorm.presentation.theme.LightTextColor
-import ro.greg.swapestate.core.Constants
 import ro.greg.swapestate.core.Constants.CONTINUE
 import ro.greg.swapestate.core.Constants.CREATE_ACCOUNT
 import ro.greg.swapestate.core.Constants.PASSWORD
 import ro.greg.swapestate.presentation.auth.AuthViewModel
-import ro.greg.swapestate.core.Constants.SIGN_IN
 import ro.greg.swapestate.core.Constants.SIGN_UP_SCREEN
 import ro.greg.swapestate.presentation.components.Branding
 
@@ -78,10 +76,8 @@ fun AuthContent(
                         fontSize = 12.sp
                     )
                 }
-
                 Email(emailState = emailState, imeAction = ImeAction.Done, onImeAction = onSubmit)
                 Spacer(modifier = Modifier.height(16.dp))
-
                 val passwordState = remember { PasswordState() }
                 Password(
                     label = PASSWORD,
@@ -93,7 +89,7 @@ fun AuthContent(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
-                    onClick = { viewModel.signIn() },
+                    onClick = { viewModel.signIn(emailState.text, passwordState.text) },
                     modifier = Modifier.fillMaxWidth()
                         .padding(top = 28.dp, bottom = 3.dp)
 
@@ -103,8 +99,6 @@ fun AuthContent(
                         style = MaterialTheme.typography.subtitle2
                     )
                 }
-
-
             }
     }
 }

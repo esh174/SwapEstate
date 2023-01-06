@@ -7,10 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.HourglassTop
-import androidx.compose.material.icons.filled.OtherHouses
-import androidx.compose.material.icons.filled.Reviews
-import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
@@ -52,7 +49,6 @@ fun ProfileContent(
                 .verticalScroll(rememberScrollState())
             ,
         ) {
-
             Card(modifier = Modifier
                 .fillMaxWidth(),
                 elevation = 4.dp,
@@ -76,11 +72,8 @@ fun ProfileContent(
                         }
                     }
                 }
-
             }
-
             Spacer(Modifier.height(14.dp))
-
             Card(modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp)),
@@ -105,7 +98,7 @@ fun ProfileContent(
                             .padding(15.dp)
                     ){
                         Icon(
-                            imageVector = Icons.Filled.OtherHouses,
+                            imageVector = Icons.Filled.Pets,
                             contentDescription = null,
                             tint = LightTextColor,
                             modifier = Modifier
@@ -132,7 +125,6 @@ fun ProfileContent(
                         )
                     }
                 }
-
             }
             Spacer(Modifier.height(14.dp))
             Card(modifier = Modifier
@@ -228,7 +220,6 @@ fun ProfileContent(
                     }
                     Divider(color = Color.LightGray, thickness = 1.dp)
                     TextButton(
-
                         onClick = {
                             /*TODO*/
                         },

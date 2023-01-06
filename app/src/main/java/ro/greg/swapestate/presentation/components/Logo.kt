@@ -14,11 +14,12 @@ fun Logo(
     lightTheme: Boolean = MaterialTheme.colors.isLight
 ) {
     val assetId = if (lightTheme) {
-        R.drawable.ic_swapestate
+        R.drawable.meetpet
     } else {
-        R.drawable.ic_swapestate
+        R.drawable.meetpet
     }
     Image(
+
         painter = painterResource(id = assetId),
         modifier = modifier,
         contentDescription = null

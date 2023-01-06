@@ -1,5 +1,4 @@
-package ro.greg.swapestate.presentation.chats_list
-
+package ro.greg.swapestate.presentation.chats.chats_list
 
 
 import android.net.Uri
@@ -33,21 +32,16 @@ class ChatsListViewModel @Inject constructor(
     private val authUseCases: AuthUseCases,
     private val firestoreUseCases: FirestoreUseCases,
     private val cloudStorageUseCases: CloudStorageUseCases
-): ViewModel() {
-
+) : ViewModel() {
     val imagesRef = FirebaseStorage.getInstance().getReference("images")
-
 
     private val _chatsState = mutableStateOf<Response<List<Chat>>>(Response.Loading)
     val chatsState: State<Response<List<Chat>>> = _chatsState
 
-
     private val _userInfoState = mutableStateOf<Response<User?>>(Response.Loading)
     val userInfoState: State<Response<User?>> = _userInfoState
 
-
     private val userUid get() = authUseCases.getUserUid()
-
 
     init {
         val userResp = FirebaseFirestore.getInstance().collection("users")
@@ -55,14 +49,12 @@ class ChatsListViewModel @Inject constructor(
                 val user = snapshot!!.toObject(User::class.java)
                 getChatsList(user!!)
             }
-
     }
 
     fun getUserId(chat: Chat): String? {
         val id = chat.userList?.filter { s -> s != userUid }?.single()
         return id
     }
-
 
     private fun getChatsList(user: User) {
         viewModelScope.launch {
@@ -72,7 +64,7 @@ class ChatsListViewModel @Inject constructor(
         }
     }
 
-//    fun getProfileImageUrl(imageUserId: String) {
+    //    fun getProfileImageUrl(imageUserId: String) {
 //         val _getProfileImageUrlState = mutableStateOf<Response<String>>(Response.Success(""))
 //        val getProfileImageUrlState: State<Response<String>> = _getProfileImageUrlState
 //        viewModelScope.launch {
@@ -84,34 +76,20 @@ class ChatsListViewModel @Inject constructor(
 //
 //
 //        }
-fun cloudStorageGetImageUrl(fileName: String): String = runBlocking {
-    imagesRef.child(fileName).downloadUrl.await().toString()
-}
-
+    fun cloudStorageGetImageUrl(fileName: String): String = runBlocking {
+        imagesRef.child(fileName).downloadUrl.await().toString()
+    }
 
     fun getChatCard(ownerId: String, rentalId: String): State<Response<HashMap<String, String?>>> {
         val _getChatCardState = mutableStateOf<Response<HashMap<String, String?>>>(Response.Loading)
         val getChatCardState: State<Response<HashMap<String, String?>>> = _getChatCardState
         viewModelScope.launch {
-
             firestoreUseCases.getChatCard(ownerId, rentalId).collect { response ->
                 _getChatCardState.value = response
             }
-//    }
-
         }
         return getChatCardState
     }
-
-
-
-
-
-
-
-
-
-
 }
 
 

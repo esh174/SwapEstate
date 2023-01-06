@@ -9,7 +9,6 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.SubdirectoryArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,24 +21,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.shtistorm.presentation.theme.PrimaryColor
-import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.Review
-import ro.greg.swapestate.presentation.components.ProgressBar
 import ro.greg.swapestate.presentation.reviews.ReviewsViewModel
 
 
 @Composable
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
- fun ReviewCard(
+fun ReviewCard(
     review: Review,
     viewModel: ReviewsViewModel
 ) {
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -49,23 +44,21 @@ import ro.greg.swapestate.presentation.reviews.ReviewsViewModel
         ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth().padding(horizontal = 10.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .fillMaxWidth().padding(vertical = 10.dp)
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp)
             ) {
-
                 Card(
-
                     modifier = Modifier
                         .size(70.dp),
                     shape = CircleShape,
                     elevation = 0.dp,
-
-                    ) {
-
+                ) {
                     Image(
 
                         painter = rememberAsyncImagePainter(
@@ -75,13 +68,9 @@ import ro.greg.swapestate.presentation.reviews.ReviewsViewModel
                         contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth(),
-
                         contentScale = ContentScale.Crop
-
                     )
                 }
-
-
                 review.userName?.let {
                     Text(
 
@@ -93,13 +82,13 @@ import ro.greg.swapestate.presentation.reviews.ReviewsViewModel
                         textAlign = TextAlign.End
                     )
                 }
-
             }
             Divider(color = Color.LightGray, thickness = 1.dp)
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .fillMaxWidth().padding(vertical = 10.dp)
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp)
             ) {
                 Row(
                     modifier = Modifier
@@ -130,11 +119,8 @@ import ro.greg.swapestate.presentation.reviews.ReviewsViewModel
                             }
                     )
                 }
-
-
             }
             Divider(color = Color.LightGray, thickness = 1.dp)
-
             val textRating = when (review.rating) {
                 1 -> "Poor"
                 2 -> "Fair"
@@ -147,14 +133,10 @@ import ro.greg.swapestate.presentation.reviews.ReviewsViewModel
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                .padding(start = 10.dp)
-                .padding(vertical = 15.dp),
+                    .padding(start = 10.dp)
+                    .padding(vertical = 15.dp),
                 text = textRating
             )
-
-
-
-
             review.text?.let {
                 Text(
                     modifier = Modifier
@@ -163,9 +145,7 @@ import ro.greg.swapestate.presentation.reviews.ReviewsViewModel
                     text = it
                 )
             }
-
         }
-
     }
 }
 

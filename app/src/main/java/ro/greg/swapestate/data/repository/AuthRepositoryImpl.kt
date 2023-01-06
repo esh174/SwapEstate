@@ -31,6 +31,16 @@ class AuthRepositoryImpl  @Inject constructor(
         }
     }
 
+    override suspend fun firebaseSignInEmailPassword(email : String, password  : String) = flow {
+        try {
+            emit(Loading)
+            auth.signInWithEmailAndPassword(email, password).await()
+            emit(Success(true))
+        } catch (e: Exception) {
+            emit(Error(e.message ?: e.toString()))
+        }
+    }
+
     override suspend fun firebaseCreateUserWithEmailAndPassword(email : String, password  : String) = flow {
         try {
             emit(Loading)
@@ -39,7 +49,6 @@ class AuthRepositoryImpl  @Inject constructor(
         } catch (e: Exception) {
             emit(Error(e.message ?: e.toString()))
         }
-
     }
 
 

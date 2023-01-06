@@ -10,9 +10,9 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
+import ro.greg.shtistorm.presentation.theme.SwapEstateTheme
 import ro.greg.swapestate.presentation.navigation.NavGraph
 import ro.greg.swapestate.presentation.navigation.Screen.ProfileScreen
-import ro.greg.shtistorm.presentation.theme.SwapEstateTheme
 
 @AndroidEntryPoint
 @InternalCoroutinesApi
@@ -26,18 +26,16 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         viewModel.getAuthState()
         setContent {
-            SwapEstateTheme{
+            SwapEstateTheme {
                 val navController = rememberAnimatedNavController()
                 NavGraph(
                     navController = navController
                 )
-                if(viewModel.isUserAuthenticated) {
+                if (viewModel.isUserAuthenticated) {
                     navController.popBackStack()
                     navController.navigate(ProfileScreen.route)
-
                 }
             }
-
         }
     }
 }

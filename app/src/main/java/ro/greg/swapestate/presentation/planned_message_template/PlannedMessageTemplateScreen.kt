@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.presentation.planned_message_template.components.PlannedMessageTemplateTopBar
 import ro.greg.swapestate.presentation.planned_messages.components.PlannedMessagesTopBar
-import ro.greg.swapestate.presentation.sign_up.SignUpViewModel
+import ro.greg.swapestate.presentation.auth.sign_up.SignUpViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

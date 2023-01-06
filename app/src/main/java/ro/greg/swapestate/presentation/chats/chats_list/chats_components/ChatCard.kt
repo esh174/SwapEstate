@@ -1,4 +1,4 @@
-package ro.greg.swapestate.presentation.chats_list.chats_components
+package ro.greg.swapestate.presentation.chats.chats_list.chats_components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -28,7 +28,7 @@ import ro.greg.swapestate.core.Constants
 import ro.greg.swapestate.domain.model.Chat
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.User
-import ro.greg.swapestate.presentation.chats_list.ChatsListViewModel
+import ro.greg.swapestate.presentation.chats.chats_list.ChatsListViewModel
 import ro.greg.swapestate.presentation.components.ProgressBar
 import ro.greg.swapestate.presentation.profile.ProfileViewModel
 

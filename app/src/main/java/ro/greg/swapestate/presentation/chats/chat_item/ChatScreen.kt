@@ -1,4 +1,4 @@
-package ro.greg.swapestate.presentation.chat
+package ro.greg.swapestate.presentation.chats.chat_item
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,8 +10,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.domain.model.Response
-import ro.greg.swapestate.presentation.chat.components.ChatContent
-import ro.greg.swapestate.presentation.chat.components.ChatTopBar
+import ro.greg.swapestate.presentation.chats.chat_item.components.ChatContent
+import ro.greg.swapestate.presentation.chats.chat_item.components.ChatTopBar
 import ro.greg.swapestate.presentation.components.ProgressBar
 
 

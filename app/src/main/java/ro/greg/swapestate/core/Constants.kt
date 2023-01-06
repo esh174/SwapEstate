@@ -27,7 +27,7 @@ object Constants {
     //Strings
     const val RENTER = "Renter"
     const val OWNER = "Owner"
-    const val APP_TAGLINE = "You got two seconds to explain what you’re doing on my property"
+    const val APP_TAGLINE = "Meant for pets and their owners"
 
     //Screens
     const val SPLASH_SCREEN = "Splash"
@@ -37,6 +37,7 @@ object Constants {
     const val RENTER_DESCRIPTION_SCREEN = "RENTER_DESCRIPTION_SCREEN"
     const val RENTAL_ADD_SCREEN = "RENTAL_ADD_SCREEN"
     const val PROFILE_SCREEN = "Profile"
+    const val PETS_SCREEN = "Pets"
     const val SEARCH_SCREEN = "Search"
     const val CHATS_SCREEN = "Chats"
     const val CHAT_SCREEN = "Chat"

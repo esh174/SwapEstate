@@ -7,14 +7,7 @@ import ro.greg.swapestate.domain.model.Response
 
 
 interface CloudStorageRepository {
-
     suspend fun cloudStorageAddImage(imageUri : Uri, fileName  : String): Flow<Response<Boolean>>
-
-
     suspend fun cloudStorageGetImageUrl(fileName  : String): Flow<Response<String>>
-
     suspend fun cloudStorageGetSeveralImagesUrl(fileNameBase: String, fileCount: Int): Flow<Response<List<String>>>
-
-
-
 }

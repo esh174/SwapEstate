@@ -10,11 +10,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.InternalCoroutinesApi
-import ro.greg.swapestate.domain.model.Response
-import ro.greg.swapestate.presentation.chat.ChatViewModel
-import ro.greg.swapestate.presentation.chat.components.ChatContent
-import ro.greg.swapestate.presentation.chat.components.ChatTopBar
-import ro.greg.swapestate.presentation.components.ProgressBar
 import ro.greg.swapestate.presentation.reservation.components.ReservationContent
 import ro.greg.swapestate.presentation.reservation.components.ReservationTopBar
 

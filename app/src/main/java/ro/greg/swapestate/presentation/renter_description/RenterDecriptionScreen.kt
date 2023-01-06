@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.InternalCoroutinesApi
-import ro.greg.swapestate.presentation.sign_up.components.SignUpTopBar
+import ro.greg.swapestate.presentation.auth.sign_up.components.SignUpTopBar
 import ro.greg.swapestate.presentation.user_details.UserDetailsViewModel
 import ro.greg.swapestate.presentation.user_details.components.UserDetailsContent
 

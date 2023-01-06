@@ -1,4 +1,4 @@
-package ro.greg.swapestate.presentation.chat
+package ro.greg.swapestate.presentation.chats.chat_item
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -7,13 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import ro.greg.swapestate.core.Constants
 import ro.greg.swapestate.domain.model.*
 import ro.greg.swapestate.domain.use_case.auth_use_cases.AuthUseCases
 import ro.greg.swapestate.domain.use_case.cloud_storage_use_cases.CloudStorageUseCases
 import ro.greg.swapestate.domain.use_case.firestore_use_cases.FirestoreUseCases
-import java.time.LocalDateTime
 import java.util.*
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package ro.greg.swapestate.presentation.sign_up
+package ro.greg.swapestate.presentation.auth.sign_up
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

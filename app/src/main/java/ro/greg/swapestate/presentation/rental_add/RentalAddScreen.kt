@@ -14,7 +14,7 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.presentation.rental_add.components.RentalAddContent
-import ro.greg.swapestate.presentation.sign_up.components.SignUpTopBar
+import ro.greg.swapestate.presentation.auth.sign_up.components.SignUpTopBar
 import ro.greg.swapestate.presentation.user_details.UserDetailsViewModel
 import ro.greg.swapestate.presentation.user_details.components.UserDetailsContent
 

@@ -9,8 +9,9 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import kotlinx.coroutines.InternalCoroutinesApi
 import ro.greg.swapestate.presentation.auth.AuthScreen
-import ro.greg.swapestate.presentation.chat.ChatScreen
-import ro.greg.swapestate.presentation.chats_list.ChatsListScreen
+import ro.greg.swapestate.presentation.chats.chat_item.ChatScreen
+import ro.greg.swapestate.presentation.chats.chats_list.ChatsListScreen
+import ro.greg.swapestate.presentation.pets.PetsScreen
 import ro.greg.swapestate.presentation.planned_message_template.PlannedMessageTemplateScreen
 import ro.greg.swapestate.presentation.planned_messages.PlannedMesagesScreen
 import ro.greg.swapestate.presentation.profile.ProfileScreen
@@ -20,7 +21,7 @@ import ro.greg.swapestate.presentation.reservation.ReservationScreen
 import ro.greg.swapestate.presentation.reservation_list.ReservationListScreen
 import ro.greg.swapestate.presentation.reviews.ReviewsScreen
 import ro.greg.swapestate.presentation.search.SearchScreen
-import ro.greg.swapestate.presentation.sign_up.SignUpScreen
+import ro.greg.swapestate.presentation.auth.sign_up.SignUpScreen
 import ro.greg.swapestate.presentation.user_details.UserDetailsScreen
 
 @Composable
@@ -75,6 +76,13 @@ fun NavGraph (
             route = Screen.ProfileScreen.route
         ) {
             ProfileScreen(
+                navController = navController
+            )
+        }
+        composable(
+            route = Screen.PetsScreen.route
+        ) {
+            PetsScreen(
                 navController = navController
             )
         }

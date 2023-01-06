@@ -4,26 +4,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
-import com.gowtham.ratingbar.RatingBar
-import com.gowtham.ratingbar.RatingBarConfig
-import com.gowtham.ratingbar.RatingBarStyle
-import com.gowtham.ratingbar.StepSize
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import ro.greg.shtistorm.presentation.theme.PrimaryColor
 import ro.greg.swapestate.domain.model.Response
-import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.presentation.components.ProgressBar
 import ro.greg.swapestate.presentation.profile.ProfileViewModel
 
@@ -34,14 +24,13 @@ import ro.greg.swapestate.presentation.profile.ProfileViewModel
 fun SearchRentalCard(
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
-
-
-
     val profileImageUrlState = viewModel.getProfileImageUrlState
-    Row(verticalAlignment = Alignment.CenterVertically,
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 15.dp, vertical = 20.dp)){
+            .padding(horizontal = 15.dp, vertical = 20.dp)
+    ) {
         Card(
             shape = CircleShape,
             modifier = Modifier
@@ -67,21 +56,17 @@ fun SearchRentalCard(
                     )
                 }
             }
-
-
-
         }
         Card(
             modifier = Modifier
                 .fillMaxWidth(),
             elevation = 0.dp,
-        ){
-            Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp)){
-
-
+        ) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp)) {
             }
         }
     }
-
 }
 

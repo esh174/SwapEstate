@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Chat
+import androidx.compose.material.icons.outlined.Pets
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +22,7 @@ import ro.greg.shtistorm.presentation.theme.BackgroundColor
 import ro.greg.shtistorm.presentation.theme.LightTextColor
 import ro.greg.shtistorm.presentation.theme.PrimaryColor
 import ro.greg.swapestate.core.Constants.CHATS_SCREEN
+import ro.greg.swapestate.core.Constants.PETS_SCREEN
 import ro.greg.swapestate.core.Constants.PROFILE_SCREEN
 import ro.greg.swapestate.core.Constants.SEARCH_SCREEN
 import ro.greg.swapestate.presentation.profile.ProfileViewModel
@@ -48,13 +50,18 @@ fun BottomNavigationBar(
                 icon = Icons.Outlined.AccountCircle,
                 badgeCount = 214
             ),
+            BottomNavItem(
+                name = "Pets",
+                route = PETS_SCREEN,
+                icon = Icons.Outlined.Pets,
+            ),
         ),
-        navController = navController,                onItemClick = {
+        navController = navController,
+        onItemClick = {
             navController.navigate(it.route)
         }
     )
 }
-
 
 @Composable
 fun BottomNavigationBar(
@@ -79,7 +86,7 @@ fun BottomNavigationBar(
                 unselectedContentColor = LightTextColor,
                 icon = {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        if(item.badgeCount > 0) {
+                        if (item.badgeCount > 0) {
                             BadgedBox(badge = { Badge { Text(text = item.badgeCount.toString()) } }) {
                                 Icon(
                                     imageVector = item.icon,
@@ -92,7 +99,7 @@ fun BottomNavigationBar(
                                 contentDescription = item.name
                             )
                         }
-                        if(selected) {
+                        if (selected) {
                             Text(
                                 text = item.name,
                                 textAlign = TextAlign.Center,

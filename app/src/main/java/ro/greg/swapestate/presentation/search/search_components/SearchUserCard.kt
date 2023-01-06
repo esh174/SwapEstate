@@ -14,10 +14,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarConfig
 import com.gowtham.ratingbar.RatingBarStyle
@@ -29,7 +27,6 @@ import ro.greg.swapestate.core.Constants
 import ro.greg.swapestate.domain.model.Response
 import ro.greg.swapestate.domain.model.User
 import ro.greg.swapestate.presentation.components.ProgressBar
-import ro.greg.swapestate.presentation.profile.ProfileViewModel
 import ro.greg.swapestate.presentation.search.SearchScreenViewModel
 
 
@@ -38,36 +35,35 @@ import ro.greg.swapestate.presentation.search.SearchScreenViewModel
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 fun SearchUserCard(
-    navController : NavController,
+    navController: NavController,
     user: User,
     viewModel: SearchScreenViewModel
 ) {
-
-
     viewModel.getProfileImageUrl(user.id!!)
     val profileImageUrlState = viewModel.getProfileImageUrlState
 
-    Row(verticalAlignment = Alignment.CenterVertically,
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 15.dp, vertical = 10.dp)){
+            .padding(horizontal = 15.dp, vertical = 10.dp)
+    ) {
         Card(
             shape = CircleShape,
             modifier = Modifier
                 .padding(15.dp)
                 .size(80.dp),
             elevation = 0.dp,
-            onClick = {navController.navigate("${Constants.REVIEWS_SCREEN}/${user.id}")}
-
-            ) {
+            onClick = { navController.navigate("${Constants.REVIEWS_SCREEN}/${user.id}") }
+        ) {
             when (val response = profileImageUrlState.value) {
                 is Response.Loading -> {
                     ProgressBar()
                 }
                 is Response.Success -> {
                     Image(
-
-                        painter = rememberAsyncImagePainter(model = response.data
+                        painter = rememberAsyncImagePainter(
+                            model = response.data
                         ),
                         contentDescription = null,
                         modifier = Modifier
@@ -76,31 +72,29 @@ fun SearchUserCard(
                     )
                 }
             }
-
-
-
         }
         Card(
             modifier = Modifier
                 .fillMaxWidth(),
             elevation = 0.dp,
-        ){
-            Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp)){
+        ) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp)) {
                 user.name?.let { name ->
                     Text(
                         fontWeight = FontWeight.Bold,
                         text = name,
                         fontSize = 24.sp
-
                     )
                 }
                 user.rating.let { rating ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically
-                    ){
+                    ) {
                         RatingBar(
                             value = rating.toFloat(),
-                            config =  RatingBarConfig()
+                            config = RatingBarConfig()
                                 .activeColor(PrimaryColor)
                                 .inactiveColor(Color.LightGray)
                                 .stepSize(StepSize.HALF)
@@ -119,11 +113,9 @@ fun SearchUserCard(
                             modifier = Modifier.padding(4.dp)
                         )
                     }
-
                 }
             }
         }
     }
-
 }
 

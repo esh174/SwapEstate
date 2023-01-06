@@ -10,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val authUseCases: AuthUseCases
-): ViewModel() {
+) : ViewModel() {
     val isUserAuthenticated get() = authUseCases.isUserAuthenticated()
 
     fun getAuthState() = liveData(Dispatchers.IO) {

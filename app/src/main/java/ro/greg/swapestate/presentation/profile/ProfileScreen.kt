@@ -23,8 +23,6 @@ fun ProfileScreen(
     navController: NavController,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
-
-
     Scaffold(
         modifier = Modifier.systemBarsPadding(),
         topBar = {
@@ -38,9 +36,6 @@ fun ProfileScreen(
         it.calculateTopPadding()
         ProfileContent(navController=  navController,viewModel = viewModel)
     }
-
-
-
     when(val response = viewModel.signOutState.value) {
         is Loading -> ProgressBar()
         is Success -> if (response.data) {

@@ -41,6 +41,7 @@ class AppModule {
     fun provideAuthUseCases(repository: AuthRepository) = AuthUseCases(
         isUserAuthenticated = IsUserAuthenticated(repository),
         signInAnonymously = SignInAnonymously(repository),
+        singInEmailPassword = SignInEmailPassword(repository),
         createUserWithEmailAndPassword = CreateUserWithEmailAndPassword(repository),
         signOut = SignOut(repository),
         getAuthState = GetAuthState(repository),
@@ -57,7 +58,6 @@ class AppModule {
     fun provideFirestoreRepository(
         dbInstance: FirebaseFirestore,
     ): FirestoreRepository = FirestoreRepositoryImpl(dbInstance)
-
 
     @Provides
     fun provideFirestoreUseCases(repository: FirestoreRepository) = FirestoreUseCases(
@@ -93,9 +93,4 @@ class AppModule {
         getImageUrl =  GetImageUrl(repository),
         getSeveralImages = GetSeveralImages(repository)
     )
-
-
-
-
-
 }

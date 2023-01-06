@@ -1,4 +1,4 @@
-package ro.greg.swapestate.presentation.chat.components
+package ro.greg.swapestate.presentation.chats.chat_item.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -10,8 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.Tune
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,22 +18,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.gowtham.ratingbar.RatingBar
 import com.gowtham.ratingbar.RatingBarConfig
 import com.gowtham.ratingbar.RatingBarStyle
 import com.gowtham.ratingbar.StepSize
 import ro.greg.shtistorm.presentation.theme.BackgroundColor
-import ro.greg.shtistorm.presentation.theme.OnSurfaceColor
 import ro.greg.shtistorm.presentation.theme.PrimaryColor
 import ro.greg.swapestate.core.Constants
 import ro.greg.swapestate.domain.model.Chat
-import ro.greg.swapestate.domain.model.Rental
 import ro.greg.swapestate.domain.model.Response
-import ro.greg.swapestate.presentation.chat.ChatViewModel
+import ro.greg.swapestate.presentation.chats.chat_item.ChatViewModel
 import ro.greg.swapestate.presentation.components.ProgressBar
 
 @Composable

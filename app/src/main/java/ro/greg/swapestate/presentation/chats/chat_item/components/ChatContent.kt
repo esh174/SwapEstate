@@ -1,13 +1,11 @@
-package ro.greg.swapestate.presentation.chat.components
+package ro.greg.swapestate.presentation.chats.chat_item.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
@@ -26,8 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -37,9 +33,8 @@ import ro.greg.shtistorm.presentation.theme.LightTextColor
 import ro.greg.shtistorm.presentation.theme.PrimaryColor
 import ro.greg.swapestate.domain.model.Message
 import ro.greg.swapestate.domain.model.Response
-import ro.greg.swapestate.presentation.chat.ChatViewModel
+import ro.greg.swapestate.presentation.chats.chat_item.ChatViewModel
 import ro.greg.swapestate.presentation.components.ProgressBar
-import ro.greg.swapestate.presentation.search.SearchScreenViewModel
 
 @OptIn(InternalCoroutinesApi::class)
 @Composable

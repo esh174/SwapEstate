@@ -1,4 +1,4 @@
-package ro.greg.swapestate.presentation.sign_up.components
+package ro.greg.swapestate.presentation.auth.sign_up.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
